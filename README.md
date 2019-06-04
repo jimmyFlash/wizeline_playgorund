@@ -12,3 +12,8 @@ and creation of simple views.
 ## Mockup
 
  ![alt text](https://raw.githubusercontent.com/miguelvillasenor/bookschallenge/master/Mockup.png "Mockup")
+ 
+ 
+# Using Java
+
+In case of using java replace the name of the activity in the `AndroidManifest.xml` for `.MainActivityJava`
