@@ -19,6 +19,7 @@ class BookRecyclerAdapter : RecyclerView.Adapter<BookRecyclerAdapter.BookHolder>
 
     init{
 
+        // call diff-utils on initialization with defined callback
         val diffUtilCallback = object : DiffUtil.ItemCallback<BookWRating>() {
 
             override fun areItemsTheSame(@NonNull newBook: BookWRating, @NonNull oldBook: BookWRating): Boolean {
@@ -34,21 +35,29 @@ class BookRecyclerAdapter : RecyclerView.Adapter<BookRecyclerAdapter.BookHolder>
 
     }
 
+    /**
+     * in charge of populating / updating the adapter for RV
+     * @param [actors] the string to convert to List<String>
+     */
     fun swap(actors: MutableList<BookWRating>) {
-
-
         diffAsync.submitList(actors.toList())
     }
+
+    // binding ref
     lateinit var inflatedViewBinding : RecyclerviewItemRowBinding
 
 
+    // Viewholder implementation
     class BookHolder(private var binding: RecyclerviewItemRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val view = binding.root
 
+        /**
+         * binds the data object (bookRating) with instance of the BookWRating
+         * to populate the ui using dataBinding
+         */
         fun bindBook(book: BookWRating) {
             binding.bookRating = book
-
 
         }
 
