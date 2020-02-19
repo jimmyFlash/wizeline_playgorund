@@ -50,4 +50,15 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0'
 
+    // dagger dependency
+    /*
+    Dagger is implemented using Java's annotations model.
+    It generates code at compile-time using an annotation processor.
+    Annotation processors are supported in Kotlin with the kapt compiler plugin.
+    They are enabled by adding apply plugin: 'kotlin-kapt' to the top of the file
+    below the apply plugin: 'kotlin-android-extensions' line.
+     */
+//    implementation "com.google.dagger:dagger:$dagger_version"
+//    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+
 }
