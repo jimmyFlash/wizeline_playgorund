@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.wizeline.bookchallenge.locked.Book
 import com.wizeline.bookchallenge.locked.BooksClient
-import com.wizeline.bookchallenge.locked.BooksClientImpl
 import com.wizeline.bookchallenge.locked.data
 import kotlinx.coroutines.*
 
@@ -17,7 +16,7 @@ class MainActivityViewModel : ViewModel() {
     val loading : MutableLiveData<Boolean> = MutableLiveData()// loading state observable
 
     // book service  client instance
-    private var booksClient: BooksClient = BooksClientImpl()
+    private var booksClient: BooksClient = BooksClientImpUpdate()
 
     /*
         setup a base coroutine scope with job
