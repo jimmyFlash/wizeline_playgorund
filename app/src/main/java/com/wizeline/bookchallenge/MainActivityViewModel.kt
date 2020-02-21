@@ -7,8 +7,9 @@ import com.wizeline.bookchallenge.locked.Book
 import com.wizeline.bookchallenge.locked.BooksClient
 import com.wizeline.bookchallenge.locked.data
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
-class MainActivityViewModel : ViewModel() {
+class MainActivityViewModel @Inject constructor(): ViewModel() {
 
     //val topRatedBooksList : MutableLiveData<List<Book>> = MutableLiveData()
     val allBooksList : MutableLiveData<List<Book>> = MutableLiveData()// list of all books observable

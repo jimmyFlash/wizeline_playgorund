@@ -7,12 +7,14 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wizeline.bookchallenge.adapters.BookRecyclerAdapter
 import com.wizeline.bookchallenge.locked.Book
 import com.wizeline.bookchallenge.locked.data
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 
 class MainActivity : AppCompatActivity() {
@@ -22,7 +24,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var filtered: List<String>
     // list that keep refrence to all books loaded so not to have to call book loading method more than once
     private var allBok: List<Book> = listOf()
+
     // VM reference
+    @Inject
+    lateinit var mainActivityViewModelFactory: ViewModelProvider.Factory
+
     lateinit var mainActivityViewModel: MainActivityViewModel
 
     // mutable list of rated books holder
@@ -38,10 +44,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Grabs instance of the application graph
+        // and populates @Inject fields with objects from the graph
+        (application as MyApplication).appComponent.inject(this)
+
         setContentView(R.layout.activity_main)
 
         //
-        mainActivityViewModel =  ViewModelProvider(this).get(MainActivityViewModel::class.java)
+        //mainActivityViewModel =  ViewModelProvider(this).get(MainActivityViewModel::class.java)
+        mainActivityViewModel =  ViewModelProvider(viewModelStore, mainActivityViewModelFactory)
+                                .get(MainActivityViewModel::class.java)
 
         // set up the recycler view display and divider
         linearLayoutManager = LinearLayoutManager(this)
