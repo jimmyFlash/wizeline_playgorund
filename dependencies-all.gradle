@@ -1,0 +1,43 @@
+ext.deps = [
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        // BUILD                                                                                  //
+        ////////////////////////////////////////////////////////////////////////////////////////////
+
+        'build'      : [
+                'gradle': "com.android.tools.build:gradle:$versions.gradle",
+                'kotlin': "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+        ],
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        // MAIN                                                                                   //
+        ////////////////////////////////////////////////////////////////////////////////////////////
+
+        'libs'       : fileTree(dir: 'libs', include: ['*.jar']),
+        'kotlin'     : [
+                'lib'                : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin",
+                'ktx'                : "androidx.core:core-ktx:$versions.ktx",
+                "coroutines-core"    : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines",
+                "coroutines-android" : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
+        ],
+
+        'androidx'    : [
+                'appcompat'          : "androidx.appcompat:appcompat:$versions.appcompat",
+                'recyclerView'       : "androidx.recyclerview:recyclerview:$versions.recyclerview",
+                'lifcycle-extension' : "androidx.lifecycle:lifecycle-extensions:$versions.lifecyclextensions",
+                'constraintlayout'   : "androidx.constraintlayout:constraintlayout:$versions.constraintlayout",
+        ],
+        'dagger'     : [
+                'dagger'   : "com.google.dagger:dagger:$versions.dagger",
+                'compiler' : "com.google.dagger:dagger-compiler:$versions.dagger"
+        ],
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        // TESTING                                                                                //
+        ////////////////////////////////////////////////////////////////////////////////////////////
+
+        'jUnit'      : "junit:junit:$versions.jUnit",
+        'espresso'   : "androidx.test.espresso:espresso-core:$versions.espresso",
+        'runner'     : "androidx.test:runner:$versions.runner"
+
+]

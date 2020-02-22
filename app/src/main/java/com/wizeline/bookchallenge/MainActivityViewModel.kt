@@ -82,7 +82,6 @@ class MainActivityViewModel @Inject constructor(): ViewModel() {
 
             val booksWRate = mutableListOf<BookWRating>()
 
-            //todo optimise performance of calculation speed
             val matchingCats = allBooksList.value?.filter {
                 if (catMatch == Constants.EXCAT_CATEGORY_MATCH) {
                     it.categories == catList
