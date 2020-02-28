@@ -1,0 +1,78 @@
+def Group(Closure closure) {
+    closure.delegate = dependencies
+    return closure
+}
+
+/**
+ All groups below for easy copy/pasting:
+
+ libraries()
+ kotlin()
+ debugging()
+ dagger()
+ networking()
+ rx()
+ architectureComponents()
+ view()
+ testing()
+
+ **/
+
+ext {
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // LIBRARIES                                                                                  //
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    libraries = Group {
+        implementation deps.libs
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // KOTLIN                                                                                     //
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    kotlin = Group {
+        implementation deps.kotlin.lib
+        implementation deps.kotlin.ktx
+        implementation deps.kotlin.coroutines
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // DAGGER                                                                                      //
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    dagger = Group {
+        implementation deps.dagger.dagger
+        kapt deps.dagger.compiler
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // ANDROIDX COMPONENTS                                                                    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    architectureComponents = Group {
+        implementation deps.androidx.appcompat
+        implementation deps.androidx.lifcycle-extension
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // VIEW                                                                                       //
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    view = Group {
+        implementation deps.androidx.constraintlayout
+        implementation deps.androidx.recyclerView
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // TESTING                                                                                   //
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    testing = Group {
+        testImplementation(deps.jUnit) { exclude group: 'org.hamcrest' }
+        androidTestImplementation deps.espresso
+        androidTestImplementation deps.runner
+    }
+}
