@@ -15,6 +15,8 @@ buildscript {
         classpath deps.build.kotlin
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+
+        dependencies { apply from: "$rootProject.rootDir/dependencies-groups.gradle" }
     }
 }
 

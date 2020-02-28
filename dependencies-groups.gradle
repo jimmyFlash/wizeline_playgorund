@@ -8,10 +8,7 @@ def Group(Closure closure) {
 
  libraries()
  kotlin()
- debugging()
  dagger()
- networking()
- rx()
  architectureComponents()
  view()
  testing()
@@ -49,7 +46,7 @@ ext {
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    // ANDROIDX COMPONENTS                                                                    //
+    // ANDROIDX COMPONENTS                                                                         //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     architectureComponents = Group {
@@ -67,11 +64,11 @@ ext {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    // TESTING                                                                                   //
+    // TESTING                                                                                    //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     testing = Group {
-        testImplementation(deps.jUnit) { exclude group: 'org.hamcrest' }
+        testImplementation deps.jUnit
         androidTestImplementation deps.espresso
         androidTestImplementation deps.runner
     }
