@@ -1,0 +1,25 @@
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// COMMON ANDROID CONFIG SETTINGS                                                                 //
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+android {
+    compileSdkVersion versions.targetSdk
+
+    defaultConfig {
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+    }
+
+    sourceSets { test { java.srcDir project(':app').file("src/test/java") } }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// COMMON FLAGS                                                                                   //
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*androidExtensions {
+    experimental = true
+}*/

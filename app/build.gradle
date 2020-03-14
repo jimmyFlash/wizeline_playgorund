@@ -1,25 +1,48 @@
 apply plugin: 'com.android.application'
+apply from: '../config-android.gradle'
 
-apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-android-extensions'
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// APP NAME AND VERSION                                                                           //
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
-apply plugin : 'kotlin-kapt'
+enum BuildType {
+    DEBUG,
+    RELEASE
+}
+
+static def getAppName(BuildType buildType) {
+    String APP_NAME = "WiseLine-playground"
+    switch (buildType) {
+        case BuildType.DEBUG:
+            return APP_NAME + "-" + BuildType.DEBUG.name()
+        case BuildType.RELEASE:
+            return APP_NAME + "-" + BuildType.RELEASE.name()
+    }
+}
+
+def versionMajor = 1
+def versionMinor = 0
+def versionPatch = 0
+
 
 android {
-    compileSdkVersion 28
     defaultConfig {
         applicationId "com.wizeline.bookchallenge"
-        minSdkVersion 15
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode versionMajor * 100000 + versionMinor * 1000 + versionPatch * 10
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            resValue "string", "app_name", getAppName(BuildType.DEBUG)
+        }
+
+        debug {
+            applicationIdSuffix ".debug"
+            resValue "string", "app_name", getAppName(BuildType.DEBUG)
         }
     }
 
@@ -35,20 +58,11 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.core:core-ktx:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-
-    // adding coroutine dependency
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0'
+    libraries()
+    testing()
+    architectureComponents()
+    viewsArch()
+    kotlin()
 
     // dagger dependency
     /*
@@ -58,7 +72,6 @@ dependencies {
     They are enabled by adding apply plugin: 'kotlin-kapt' to the top of the file
     below the apply plugin: 'kotlin-android-extensions' line.
      */
-    implementation "com.google.dagger:dagger:$dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    daggerX()
 
 }

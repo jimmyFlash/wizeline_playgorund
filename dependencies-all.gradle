@@ -15,16 +15,16 @@ ext.deps = [
 
         'libs'       : fileTree(dir: 'libs', include: ['*.jar']),
         'kotlin'     : [
-                'lib'                : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin",
+                'lib'                : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin",
                 'ktx'                : "androidx.core:core-ktx:$versions.ktx",
-                "coroutines-core"    : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines",
-                "coroutines-android" : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
+                "coroutinesCore"    : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines",
+                "coroutinesAndroid" : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
         ],
 
         'androidx'    : [
                 'appcompat'          : "androidx.appcompat:appcompat:$versions.appcompat",
                 'recyclerView'       : "androidx.recyclerview:recyclerview:$versions.recyclerview",
-                'lifcycle-extension' : "androidx.lifecycle:lifecycle-extensions:$versions.lifecyclextensions",
+                'lifcycleExtension' : "androidx.lifecycle:lifecycle-extensions:$versions.lifecyclextensions",
                 'constraintlayout'   : "androidx.constraintlayout:constraintlayout:$versions.constraintlayout",
         ],
         'dagger'     : [

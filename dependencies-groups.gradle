@@ -32,14 +32,15 @@ ext {
     kotlin = Group {
         implementation deps.kotlin.lib
         implementation deps.kotlin.ktx
-        implementation deps.kotlin.coroutines
+        implementation deps.kotlin.coroutinesCore
+        implementation deps.kotlin.coroutinesAndroid
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // DAGGER                                                                                      //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    dagger = Group {
+    daggerX = Group {
         implementation deps.dagger.dagger
         kapt deps.dagger.compiler
     }
@@ -51,14 +52,14 @@ ext {
 
     architectureComponents = Group {
         implementation deps.androidx.appcompat
-        implementation deps.androidx.lifcycle-extension
+        implementation deps.androidx.lifcycleExtension
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // VIEW                                                                                       //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    view = Group {
+    viewsArch = Group {
         implementation deps.androidx.constraintlayout
         implementation deps.androidx.recyclerView
     }
