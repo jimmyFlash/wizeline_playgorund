@@ -8,7 +8,6 @@ import java.text.DecimalFormat
 import kotlin.random.Random
 
 // todo create list with presisatnt book ratings
-// todo centralize the dependencies
 class BooksClientImpUpdate : BooksClient {
 
     override fun getTopRatedBooks(): List<Book> {
