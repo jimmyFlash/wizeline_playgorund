@@ -8,8 +8,8 @@ class BooksClientImpl: BooksClient {
 
     override fun getTopRatedBooks(): List<Book> {
         randomDelay()
-        val listSize = Random.nextInt(1, data.bookList.size)
-        return data.bookList.shuffled().take(listSize)
+        val listSize = Random.nextInt(1, Data.bookList.size)
+        return Data.bookList.shuffled().take(listSize)
     }
 
     override fun getRatingForBook(bookId: String): Float {

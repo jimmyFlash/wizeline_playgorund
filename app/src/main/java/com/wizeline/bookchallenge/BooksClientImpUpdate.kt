@@ -3,16 +3,16 @@ package com.wizeline.bookchallenge
 import android.util.Log
 import com.wizeline.bookchallenge.locked.Book
 import com.wizeline.bookchallenge.locked.BooksClient
-import com.wizeline.bookchallenge.locked.data
+import com.wizeline.bookchallenge.locked.Data
 import java.text.DecimalFormat
 import kotlin.random.Random
 
-// todo create list with presisatnt book ratings
+// todo use the build.config parameter created in gradle properties file
 class BooksClientImpUpdate : BooksClient {
 
     override fun getTopRatedBooks(): List<Book> {
-        val listSize = Random.nextInt(1, data.bookList.size)
-        return data.bookList.shuffled().take(listSize)
+        val listSize = Random.nextInt(1, Data.bookList.size)
+        return Data.bookList.shuffled().take(listSize)
     }
 
     override fun getRatingForBook(bookId: String): Float {

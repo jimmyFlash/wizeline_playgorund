@@ -7,12 +7,11 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wizeline.bookchallenge.adapters.BookRecyclerAdapter
 import com.wizeline.bookchallenge.locked.Book
-import com.wizeline.bookchallenge.locked.data
+import com.wizeline.bookchallenge.locked.Data
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -22,8 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     // list of book unique book categories sorted in desc. order
     private lateinit var filtered: List<String>
-    // list that keep refrence to all books loaded so not to have to call book loading method more than once
-    private var allBok: List<Book> = listOf()
+
 
     // VM reference
     @Inject
@@ -87,18 +85,14 @@ class MainActivity : AppCompatActivity() {
         // observer the full list of books loaded
         mainActivityViewModel.allBooksList.observe(this, Observer{
 
-            // keep ref. to all loaded books
-            allBok = it
-
             // populate the catList with extracted categories
-            catList.addAll(data.bookList.map { book ->
+            catList.addAll(it.map { book ->
                 return@map book.categories.joinToString ()
             })
 
             // create a list filtered and sorted unique categories
-             filtered = catList.let {
-                it.distinct().sortedDescending().reversed()
-            }
+             filtered = catList.distinct().sortedDescending().reversed()
+
             // populate the spinner with cat. data form filtered cat. titles
             catSpinner.adapter = ArrayAdapter<String> (this,
                 android.R.layout.simple_spinner_item, filtered)
@@ -114,7 +108,7 @@ class MainActivity : AppCompatActivity() {
                 displayProg(true) // display progress bar
                 val bookCat = filtered[position] // get the selected category string
 
-                // call VM methos that filters the list of all books and returns on the matching selected
+                // call VM method that filters the list of all books and returns on the matching selected
                 // category or a category that contains this category as subset based on the 2nd argument
                 // constant
                 mainActivityViewModel.filterBooks( convterStringToList (bookCat),

@@ -1,6 +1,6 @@
 package com.wizeline.bookchallenge.locked
 
-object data {
+object Data {
 
     val bookList = listOf(
         Book(
