@@ -39,9 +39,12 @@ class BooksWithRatingFakeStorage  {
             it.rating > 4.0
         }
 
+    fun getAllBooks() = listsOfBookWrate
 
-    fun getRatingForBook(bookId: String): Float {
-        TODO("Not yet implemented")
+
+    fun getRatingForBook(bookId: String): Float? {
+        return listsOfBookWrate?.filter { it.b.id == bookId }
+            ?.elementAtOrNull(0)?.rating
     }
 
 }

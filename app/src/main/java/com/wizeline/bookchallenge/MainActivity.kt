@@ -49,6 +49,8 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
+        supportActionBar?.title = BuildConfig.APP_NAME
+
         //
         //mainActivityViewModel =  ViewModelProvider(this).get(MainActivityViewModel::class.java)
         mainActivityViewModel =  ViewModelProvider(viewModelStore, mainActivityViewModelFactory)
@@ -73,7 +75,7 @@ class MainActivity : AppCompatActivity() {
             displayProg(it)
         })
 
-        // observer the list of loaded books per category and update RV adapter
+        //todo optimise below observer the list of loaded books per category and update RV adapter
         mainActivityViewModel.filteredBooksList.observe(this, Observer{
             if(it.isNotEmpty()) {
                 filteredBookCatList.clear()
@@ -86,16 +88,14 @@ class MainActivity : AppCompatActivity() {
         mainActivityViewModel.allBooksList.observe(this, Observer{
 
             // populate the catList with extracted categories
-            catList.addAll(it.map { book ->
-                return@map book.categories.joinToString ()
-            })
-
-            // create a list filtered and sorted unique categories
-             filtered = catList.distinct().sortedDescending().reversed()
+            catList =
+                it.map { bookWrating ->
+                    return@map bookWrating.b.categories.joinToString ()
+                }.distinct().sortedDescending().reversed() as MutableList<String>
 
             // populate the spinner with cat. data form filtered cat. titles
             catSpinner.adapter = ArrayAdapter<String> (this,
-                android.R.layout.simple_spinner_item, filtered)
+                android.R.layout.simple_spinner_item, catList)
         })
 
         // register item selected listener to the spinner
@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 displayProg(true) // display progress bar
-                val bookCat = filtered[position] // get the selected category string
+                val bookCat = catList[position] // get the selected category string
 
                 // call VM method that filters the list of all books and returns on the matching selected
                 // category or a category that contains this category as subset based on the 2nd argument

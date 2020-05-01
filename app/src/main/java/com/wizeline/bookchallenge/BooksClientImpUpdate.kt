@@ -7,7 +7,6 @@ import com.wizeline.bookchallenge.locked.Data
 import java.text.DecimalFormat
 import kotlin.random.Random
 
-// todo use the build.config parameter created in gradle properties file
 class BooksClientImpUpdate : BooksClient {
 
     override fun getTopRatedBooks(): List<Book> {

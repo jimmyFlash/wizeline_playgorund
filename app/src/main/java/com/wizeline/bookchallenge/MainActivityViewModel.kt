@@ -3,21 +3,22 @@ package com.wizeline.bookchallenge
 import android.os.Handler
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.wizeline.bookchallenge.locked.Book
 import com.wizeline.bookchallenge.locked.BooksClient
-import com.wizeline.bookchallenge.locked.data
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class MainActivityViewModel @Inject constructor(): ViewModel() {
 
-    //val topRatedBooksList : MutableLiveData<List<Book>> = MutableLiveData()
-    val allBooksList : MutableLiveData<List<Book>> = MutableLiveData()// list of all books observable
+    val allBooksList : MutableLiveData<List<BookWRating>> = MutableLiveData()// list of all books observable
     val filteredBooksList : MutableLiveData<List<BookWRating>> = MutableLiveData() // list of selected set of books for certain cat.
     val loading : MutableLiveData<Boolean> = MutableLiveData()// loading state observable
 
     // book service  client instance
     private var booksClient: BooksClient = BooksClientImpUpdate()
+
+    private val booksWithRatingFakeStorage by lazy{
+        BooksWithRatingFakeStorage.createInstance()
+    }
 
     /*
         setup a base coroutine scope with job
@@ -32,7 +33,7 @@ class MainActivityViewModel @Inject constructor(): ViewModel() {
         // simulate data loaded after 1 sec
         Handler().let {
             it.postDelayed({
-                allBooksList.postValue(data.bookList)
+                allBooksList.postValue(booksWithRatingFakeStorage.getAllBooks())
                 loading.postValue(false)// loading complete
             }
             , 1000)
@@ -41,7 +42,7 @@ class MainActivityViewModel @Inject constructor(): ViewModel() {
 
 
     /**
-     * methode called from activity to load a set of books matching books with certain cat.
+     * method called from activity to load a set of books matching books with certain cat.
      * @param [catList] list of categories selected from cat. spinner
      * @param catMatch Int that indicates whether to match categories list to exact match form all books list
      * or the books that contain the selects catagory list within them
@@ -84,16 +85,15 @@ class MainActivityViewModel @Inject constructor(): ViewModel() {
 
             val matchingCats = allBooksList.value?.filter {
                 if (catMatch == Constants.EXCAT_CATEGORY_MATCH) {
-                    it.categories == catList
+                    it.b.categories == catList
                 } else {
-                    it.categories.containsAll(catList)
+                    it.b.categories.containsAll(catList)
                 }
 
             }
-
             matchingCats?.forEach {
-                val bookRandomRating = booksClient.getRatingForBook(it.id)
-                booksWRate.add(BookWRating(it, bookRandomRating))
+                val bookRandomRating = booksClient.getRatingForBook(it.b.id)
+                booksWRate.add(BookWRating(it.b, bookRandomRating))
             }
             return@withContext booksWRate
     }
