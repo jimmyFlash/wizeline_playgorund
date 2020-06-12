@@ -18,7 +18,8 @@ ext.deps = [
                 'lib'                : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin",
                 'ktx'                : "androidx.core:core-ktx:$versions.ktx",
                 "coroutinesCore"    : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines",
-                "coroutinesAndroid" : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
+                "coroutinesAndroid" : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines",
+                'viewModelKtx'       : "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.viewmodelKtx"
         ],
 
         'androidx'    : [
@@ -26,6 +27,7 @@ ext.deps = [
                 'recyclerView'       : "androidx.recyclerview:recyclerview:$versions.recyclerview",
                 'lifcycleExtension' : "androidx.lifecycle:lifecycle-extensions:$versions.lifecyclextensions",
                 'constraintlayout'   : "androidx.constraintlayout:constraintlayout:$versions.constraintlayout",
+
         ],
         'dagger'     : [
                 'dagger'   : "com.google.dagger:dagger:$versions.dagger",
