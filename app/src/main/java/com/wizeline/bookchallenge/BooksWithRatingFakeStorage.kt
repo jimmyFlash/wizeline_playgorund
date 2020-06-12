@@ -24,8 +24,9 @@ class BooksWithRatingFakeStorage  {
         private  fun createBooksWithRating(): List<BookWRating>{
             val populateList = mutableListOf<BookWRating>()
             val decimalFormat = DecimalFormat("#.#")
-            val randomRating = Random.nextDouble(1.0,5.0)
+
             Data.bookList.mapTo(populateList, {
+                val randomRating = Random.nextDouble(1.0,4.0) + 1.0
                 BookWRating(it, decimalFormat.format(randomRating).toFloat())
             })
             return Collections.unmodifiableList(populateList)
@@ -33,7 +34,7 @@ class BooksWithRatingFakeStorage  {
     }
 
      fun getTopRatedBooks(): List<BookWRating>? =
-        listsOfBookWrate?.sortedBy {
+        listsOfBookWrate?.sortedByDescending {
             it.rating
         }?.filter {
             it.rating > 4.0

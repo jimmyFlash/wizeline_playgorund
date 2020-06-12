@@ -3,11 +3,20 @@ package com.wizeline.bookchallenge
 import android.os.Handler
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.wizeline.bookchallenge.locked.BooksClient
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class MainActivityViewModel @Inject constructor(): ViewModel() {
+
+    private val coroutineExceptionHandler: CoroutineExceptionHandler =
+        CoroutineExceptionHandler { _, throwable ->
+            coroutineScope.launch(Dispatchers.Main) {
+            }
+
+            GlobalScope.launch { println("Caught $throwable") }
+        }
 
     val allBooksList : MutableLiveData<List<BookWRating>> = MutableLiveData()// list of all books observable
     val filteredBooksList : MutableLiveData<List<BookWRating>> = MutableLiveData() // list of selected set of books for certain cat.
@@ -25,18 +34,17 @@ class MainActivityViewModel @Inject constructor(): ViewModel() {
      */
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(
-        Dispatchers.Main + parentJob )
+        Dispatchers.Main + parentJob  + coroutineExceptionHandler)
 
     init{
 
         loading.postValue(true)// set loading state to true
         // simulate data loaded after 1 sec
-        Handler().let {
-            it.postDelayed({
-                allBooksList.postValue(booksWithRatingFakeStorage.getAllBooks())
-                loading.postValue(false)// loading complete
-            }
-            , 1000)
+        viewModelScope.launch {
+            loading.postValue(true)// set loading state to true
+            delay(1500)
+            allBooksList.postValue(booksWithRatingFakeStorage.getAllBooks())
+            loading.postValue(false)// loading complete
         }
     }
 
@@ -57,12 +65,19 @@ class MainActivityViewModel @Inject constructor(): ViewModel() {
         coroutineScope.launch(Dispatchers.Main) {
             loading.postValue(true)
 
-            val booksWRate =  filterSelectedBookCat (catList, catMatch)
+            val booksWRate =  filterSelectedBookCat (catList, catMatch).sortedByDescending { it.rating }
 
             filteredBooksList.postValue(booksWRate)
             loading.postValue(false)
         }
     }
+
+    fun getTopRated() = viewModelScope.launch {
+        loading.postValue(true)
+        filteredBooksList.postValue(booksWithRatingFakeStorage.getTopRatedBooks())
+        loading.postValue(false)
+    }
+
 
 
     /**

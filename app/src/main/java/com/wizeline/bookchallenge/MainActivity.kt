@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         bookList.layoutManager = linearLayoutManager
         val dividerItemDecoration = DividerItemDecoration(
             bookList.context,
-            linearLayoutManager.getOrientation()
+            linearLayoutManager.orientation
         )
         bookList.addItemDecoration(dividerItemDecoration)
 
@@ -75,7 +75,6 @@ class MainActivity : AppCompatActivity() {
             displayProg(it)
         })
 
-        //todo optimise below observer the list of loaded books per category and update RV adapter
         mainActivityViewModel.filteredBooksList.observe(this, Observer{
             if(it.isNotEmpty()) {
                 filteredBookCatList.clear()
@@ -90,11 +89,14 @@ class MainActivity : AppCompatActivity() {
             // populate the catList with extracted categories
             catList =
                 it.map { bookWrating ->
-                    return@map bookWrating.b.categories.joinToString ()
-                }.distinct().sortedDescending().reversed() as MutableList<String>
+                        bookWrating.b.categories.joinToString ()
+                   }.distinct()
+                    .sortedDescending()
+                    .reversed() as MutableList<String>
+            catList.add(0, "Top Rated Books")
 
             // populate the spinner with cat. data form filtered cat. titles
-            catSpinner.adapter = ArrayAdapter<String> (this,
+            catSpinner.adapter = ArrayAdapter(this,
                 android.R.layout.simple_spinner_item, catList)
         })
 
@@ -105,14 +107,19 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                displayProg(true) // display progress bar
+
                 val bookCat = catList[position] // get the selected category string
 
-                // call VM method that filters the list of all books and returns on the matching selected
-                // category or a category that contains this category as subset based on the 2nd argument
-                // constant
-                mainActivityViewModel.filterBooks( convterStringToList (bookCat),
-                    Constants.EXCAT_CATEGORY_MATCH)
+
+               when(position){
+                  0 -> mainActivityViewModel.getTopRated()
+                   else ->
+                       // call VM method that filters the list of all books and returns on the matching selected
+                       // category or a category that contains this category as subset based on the 2nd argument
+                       // constant
+                       mainActivityViewModel.filterBooks( convterStringToList (bookCat), Constants.EXCAT_CATEGORY_MATCH)
+
+               }
             }
 
         }
