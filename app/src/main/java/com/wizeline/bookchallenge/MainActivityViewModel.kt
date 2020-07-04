@@ -1,6 +1,5 @@
 package com.wizeline.bookchallenge
 
-import android.os.Handler
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -94,6 +93,7 @@ class MainActivityViewModel @Inject constructor(): ViewModel() {
      * time )
      *
      */
+    //todo single tone instance using dagger
     private suspend fun filterSelectedBookCat (catList : List<String>, catMatch : Int): List<BookWRating> =
         withContext(Dispatchers.Default){
 
@@ -108,8 +108,8 @@ class MainActivityViewModel @Inject constructor(): ViewModel() {
 
             }
             matchingCats?.forEach {
-                val bookRandomRating = booksClient.getRatingForBook(it.b.id)
-                booksWRate.add(BookWRating(it.b, bookRandomRating))
+                val bookRandomRating = booksWithRatingFakeStorage.getRatingForBook(it.b.id) ?: 0F
+                booksWRate.add(BookWRating(it.b, bookRandomRating ))
             }
             return@withContext booksWRate
     }
