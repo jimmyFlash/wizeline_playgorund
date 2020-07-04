@@ -5,9 +5,10 @@ import com.wizeline.bookchallenge.locked.Book
 import com.wizeline.bookchallenge.locked.BooksClient
 import com.wizeline.bookchallenge.locked.Data
 import java.text.DecimalFormat
+import javax.inject.Inject
 import kotlin.random.Random
 
-class BooksClientImpUpdate : BooksClient {
+class BooksClientImpUpdate @Inject constructor(): BooksClient {
 
     override fun getTopRatedBooks(): List<Book> {
         val listSize = Random.nextInt(1, Data.bookList.size)

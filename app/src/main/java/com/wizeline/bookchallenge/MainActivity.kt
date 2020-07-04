@@ -19,10 +19,6 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
 
-    // list of book unique book categories sorted in desc. order
-    private lateinit var filtered: List<String>
-
-
     // VM reference
     @Inject
     lateinit var mainActivityViewModelFactory: ViewModelProvider.Factory

@@ -7,7 +7,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component (modules = [ViewModelModule::class])
+@Component (modules = [ViewModelModule::class, BooksClientModule::class])
 interface AppComponent {
 
     // Factory to create instances of the AppComponent

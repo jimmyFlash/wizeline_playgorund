@@ -23,7 +23,8 @@ class MainActivityViewModel @Inject constructor(): ViewModel() {
     val loading : MutableLiveData<Boolean> = MutableLiveData()// loading state observable
 
     // book service  client instance
-    private var booksClient: BooksClient = BooksClientImpUpdate()
+    @Inject
+    lateinit var booksClient: BooksClient
 
     private val booksWithRatingFakeStorage by lazy{
         BooksWithRatingFakeStorage.createInstance()
