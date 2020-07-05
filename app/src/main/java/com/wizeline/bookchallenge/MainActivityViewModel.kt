@@ -22,13 +22,11 @@ class MainActivityViewModel @Inject constructor(): ViewModel() {
     val loading : MutableLiveData<Boolean> = MutableLiveData()// loading state observable
 
     // book service  client instance
+//    @Inject
+//    lateinit var booksClient: BooksClient
+
     @Inject
-    lateinit var booksClient: BooksClient
-
-    private val booksWithRatingFakeStorage by lazy{
-        BooksWithRatingFakeStorage.createInstance()
-    }
-
+    lateinit var  booksWithRatingFakeStorage:BooksWithRatingFakeStorage
     /*
         setup a base coroutine scope with job
      */
@@ -93,7 +91,7 @@ class MainActivityViewModel @Inject constructor(): ViewModel() {
      * time )
      *
      */
-    //todo single tone instance using dagger
+
     private suspend fun filterSelectedBookCat (catList : List<String>, catMatch : Int): List<BookWRating> =
         withContext(Dispatchers.Default){
 

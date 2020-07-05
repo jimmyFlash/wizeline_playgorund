@@ -3,14 +3,17 @@ package com.wizeline.bookchallenge
 import com.wizeline.bookchallenge.locked.Data
 import java.text.DecimalFormat
 import java.util.*
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.random.Random
 
-class BooksWithRatingFakeStorage  {
+@Singleton
+class BooksWithRatingFakeStorage  @Inject constructor(){
 
     companion object{
         private var INSTANCE : BooksWithRatingFakeStorage? = null
         var listsOfBookWrate: List<BookWRating>? = null
-        fun createInstance():BooksWithRatingFakeStorage{
+      /*  fun createInstance():BooksWithRatingFakeStorage{
             return if(INSTANCE == null){
                 BooksWithRatingFakeStorage().also {
                     INSTANCE = it
@@ -19,6 +22,10 @@ class BooksWithRatingFakeStorage  {
             }else{
                 INSTANCE as BooksWithRatingFakeStorage
             }
+        }*/
+
+        init {
+            listsOfBookWrate =  createBooksWithRating()
         }
 
         private  fun createBooksWithRating(): List<BookWRating>{
