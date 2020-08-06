@@ -56,8 +56,8 @@ android {
         versionCode = versionMajor * 100000 + versionMinor * 1000 + versionPatch * 10
         versionName  = "${versionMajor}.${versionMinor}.${versionPatch}"
         testInstrumentationRunner = DefaultConfig.instrumentationRunner
-        buildConfigField ("String", "APP_NAME",
-            "\"${getCustomProperty ("./config/common.properties")}\"")
+
+        buildConfigString("APP_NAME", getCustomProperty ("./config/common.properties"))
     }
     buildTypes {
         getByName(BuildTypes.release) {
