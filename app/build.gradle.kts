@@ -2,10 +2,10 @@ import java.io.FileInputStream
 import java.util.*
 
 plugins {
-    id(BuildPlugins.androidApplication)
-    kotlin(BuildPlugins.kotlinAndroid)
-    kotlin(BuildPlugins.kotlinAndroidExtensions)
-    kotlin(BuildPlugins.kotlinKapt)
+    androidApp()
+    kotlinAndroid()
+    kotlinAndroidExt()
+    kotlinKapt()
 }
 
 fun getCustomProperty (path :String): String {

@@ -1,7 +1,9 @@
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-//defaultTasks 'dependencyUpdates'
+plugins{
+    dependencyUpdates()
+}
 
 buildscript {
     repositories {
@@ -14,13 +16,11 @@ buildscript {
         classpath(BuildPlugins.kotlinGradlePlugin)
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-        classpath ("com.github.ben-manes:gradle-versions-plugin:0.29.0")
 
 
     }
 }
 
-apply (plugin =  "com.github.ben-manes.versions")
 
 allprojects {
     repositories {
