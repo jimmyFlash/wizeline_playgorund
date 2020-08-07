@@ -1,3 +1,4 @@
+import configuration.getConfiguration
 import java.io.FileInputStream
 import java.util.*
 
@@ -65,11 +66,15 @@ android {
             proguardFiles(
                 getDefaultProguardFile(ProgaurdFile.textFile), ProgaurdFile.ruleFile )
             resValue ("string", "app_name", getAppName(BuildTypeNum.RELEASE))
+            val configuration = getConfiguration()
+            manifestPlaceholders = mapOf("secret" to configuration.secret)
         }
 
         getByName(BuildTypes.debug) {
             applicationIdSuffix  = ".debug"
             resValue ("string", "app_name", getAppName(BuildTypeNum.DEBUG))
+            val configuration = getConfiguration()
+            manifestPlaceholders = mapOf("secret" to configuration.secret)
         }
 
     }
