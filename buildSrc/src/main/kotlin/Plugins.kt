@@ -20,6 +20,11 @@ fun PluginDependenciesSpec.kotlinKapt(): PluginDependencySpec =
 fun PluginDependenciesSpec.dependencyUpdates(): PluginDependencySpec =
     id("com.github.ben-manes.versions").version("0.29.0")
 
+// plugin that removes unused dependencies / annotations and check dependency implementation method
+// with output report
+fun PluginDependenciesSpec.buildHealth(includeVersion: Boolean = true): PluginDependencySpec =
+    id("com.autonomousapps.dependency-analysis").also { if (includeVersion) it.version("0.54.0") }
+
 fun PluginDependenciesSpec.ktlint(includeVersion: Boolean = true): PluginDependencySpec =
     id("org.jlleitschuh.gradle.ktlint").also { if (includeVersion) it.version("8.2.0") }
 

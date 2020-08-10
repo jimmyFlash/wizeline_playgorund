@@ -3,6 +3,9 @@ import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 
 plugins{
     dependencyUpdates()
+//    ktlint()
+//    detekt()
+//    buildHealth()
 }
 
 buildscript {
@@ -28,6 +31,10 @@ allprojects {
 
 tasks.register(BuildPlugins.taskTypeClean, Delete::class) {
     delete(rootProject.buildDir)
+}
+
+task<tasks.PingUrlTask>("pingUrl") {
+    url = "https://www.google.com"
 }
 
 fun isNonStable(version: String): Boolean {

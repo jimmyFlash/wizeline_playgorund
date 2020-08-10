@@ -1,85 +1,18 @@
-import configuration.getConfiguration
-import java.io.FileInputStream
-import java.util.*
-
 plugins {
     androidApp()
     kotlinAndroid()
     kotlinAndroidExt()
     kotlinKapt()
+//    ktlint(includeVersion = false)
+//    detekt(includeVersion = false)
 }
-
-fun getCustomProperty (path :String): String {
-    val property:String
-    property = try {
-        val fis = FileInputStream(path)
-        val prop = Properties()
-        prop.load(fis)
-        prop.getProperty("config_app_name")
-    } catch (e: java.io.FileNotFoundException) {
-        ""
-    }
-    return property
-}
-
-
-enum class BuildTypeNum {
-    DEBUG,
-    RELEASE
-}
-
-fun  getAppName( buildType : BuildTypeNum) : String {
-    val  appName = "WiseLine playground - "
-
-    return when (buildType) {
-        BuildTypeNum.DEBUG ->
-            "$appName  ${BuildTypes.debug}"
-        BuildTypeNum.RELEASE ->
-            "$appName  ${BuildTypes.release}"
-    }
-}
-
-
-val versionMajor = 1
-val versionMinor = 0
-val versionPatch = 0
-
-
 
 
 android {
-    compileSdkVersion(AndroidSDK.compileSdk)
-    buildToolsVersion(AndroidSDK.buildTools)
-    defaultConfig {
-        applicationId = DefaultConfig.applicationID
-        minSdkVersion(DefaultConfig.minSdk)
-        targetSdkVersion(DefaultConfig.targetSdk)
-        versionCode = versionMajor * 100000 + versionMinor * 1000 + versionPatch * 10
-        versionName  = "${versionMajor}.${versionMinor}.${versionPatch}"
-        testInstrumentationRunner = DefaultConfig.instrumentationRunner
 
-        buildConfigString("APP_NAME", getCustomProperty ("./config/common.properties"))
-    }
-    buildTypes {
-        getByName(BuildTypes.release) {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile(ProgaurdFile.textFile), ProgaurdFile.ruleFile )
-            resValue ("string", "app_name", getAppName(BuildTypeNum.RELEASE))
-            val configuration = getConfiguration()
-            manifestPlaceholders = mapOf("secret" to configuration.secret)
-        }
-
-        getByName(BuildTypes.debug) {
-            applicationIdSuffix  = ".debug"
-            resValue ("string", "app_name", getAppName(BuildTypeNum.DEBUG))
-            val configuration = getConfiguration()
-            manifestPlaceholders = mapOf("secret" to configuration.secret)
-        }
-
-    }
-
-
+    setDefaultSigningConfigs(project)
+    setAppConfig()
+    useDefaultBuildTypes()
 
     buildFeatures{
         dataBinding = true
@@ -113,3 +46,7 @@ dependencies {
     kapt (Dagger.dagger_compiler)
 
 }
+
+//ktlint {
+//    android.set(true)
+//}
