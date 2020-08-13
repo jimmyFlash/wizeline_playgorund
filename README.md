@@ -10,8 +10,9 @@
 ## Features
 
 - Kotlin
+- full Kotlin dsl migration
 - coroutines (basic)
-- Groovy DSL
+- Groovy DSL (groovy_dsl_impl branch)
 - Dagger + ViewModelFactory
 - DiffUtils with RecyclerView adapter
 - multi gradle file configuration for separate tasks and properties
