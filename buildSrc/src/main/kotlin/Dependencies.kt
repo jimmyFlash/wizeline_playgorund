@@ -104,3 +104,16 @@ object TestLibs {
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
     const val runner = "androidx.test:runner:${Versions.runner}"
 }
+
+object Lints{
+    private object Versions{
+        const val lintVersion = "27.0.0"
+    }
+
+    // Lint
+    const val  lintApi=  "com.android.tools.lint:lint-api:${Versions.lintVersion}"
+    const val  lintChecks=  "com.android.tools.lint:lint-checks:${Versions.lintVersion}"
+    // Lint Testing
+    const val  lint =  "com.android.tools.lint:lint:${Versions.lintVersion}"
+    const val  lintTests=  "com.android.tools.lint:lint-tests:${Versions.lintVersion}"
+}

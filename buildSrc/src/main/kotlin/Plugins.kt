@@ -8,6 +8,12 @@ fun PluginDependenciesSpec.androidApp(): PluginDependencySpec =
 fun PluginDependenciesSpec.androidLibrary(): PluginDependencySpec =
     id("com.android.library")
 
+fun PluginDependenciesSpec.javaLibrary(): PluginDependencySpec =
+    id("java-library")
+
+fun PluginDependenciesSpec.androidLint(): PluginDependencySpec =
+    id("com.android.lint")
+
 fun PluginDependenciesSpec.kotlinAndroid(): PluginDependencySpec =
     kotlin("android")
 

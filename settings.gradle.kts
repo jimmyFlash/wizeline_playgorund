@@ -1,1 +1,2 @@
+include(":customlints")
 include (":app")

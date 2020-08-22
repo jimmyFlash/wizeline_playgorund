@@ -2,4 +2,5 @@
 <resources>
     <dimen name="padding_text">8dp</dimen>
     <dimen name="text_size">16sp</dimen>
+    <dimen name="list_item_button_right_margin">8dp</dimen>
 </resources>

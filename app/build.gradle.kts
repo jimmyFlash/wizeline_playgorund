@@ -45,6 +45,9 @@ dependencies {
     implementation (Dagger.dagger)
     kapt (Dagger.dagger_compiler)
 
+    lintChecks(project(path = ":customlints"))
+
+
 }
 
 //ktlint {
