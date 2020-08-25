@@ -37,4 +37,11 @@
        android:visibility="gone"/>
 
 
+  <!-- just for testing the custom lint RadioButtonDetector
+   <RadioButton
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintStart_toStartOf="parent"/>-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,7 +18,7 @@ class AndroidLogIssueTest {
         )
         ?.issues(AndroidLogDetector.ISSUE)
         ?.run()// run analyzer
-        ?.expectWarningCount(1)  // make assertions
+        ?.expectErrorCount(1)  // make assertions
 
     }
     companion object {

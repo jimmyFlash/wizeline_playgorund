@@ -20,7 +20,7 @@ class RadioButtonDetector : Detector(), XmlScanner {
 
         // the quick fix suggestion supplied by the context menu
         val idiotRadioButtonFix = LintFix.create()
-            .name("Use IdiotRadioButton")
+            .name("Use CustomRadioButton")
             .replace()
             .text("RadioButton")
             .with("com.wizeline.bookchallenge.CustomRadioButton")
@@ -42,7 +42,7 @@ class RadioButtonDetector : Detector(), XmlScanner {
 //        An issue is a potential bug in an Android application.
 //        An issue is discovered by a Detector, and has an associated Severity.
         val ISSUE = Issue.create(
-            id = "IdiotRadioButtonUsageWarning", // It’s a unique identifier for the issue and the one we mention in @SupressWarning(“”).
+            id = "RadioButtonUsageWarning", // It’s a unique identifier for the issue and the one we mention in @SupressWarning(“”).
             briefDescription = "Android's RadioButton should not be used", // lines to explain the issue and will be shown for the lint, typically describing the problem rather than the fix.
             explanation = "Don't use Android Radio button, be an idiot and use IdiotRadioButton instead",
             category = Category.CORRECTNESS, // A category is a container for related issues.
