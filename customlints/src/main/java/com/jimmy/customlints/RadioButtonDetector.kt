@@ -46,7 +46,7 @@ class RadioButtonDetector : Detector(), XmlScanner {
             briefDescription = "Android's RadioButton should not be used", // lines to explain the issue and will be shown for the lint, typically describing the problem rather than the fix.
             explanation = "Don't use Android Radio button, be an idiot and use IdiotRadioButton instead",
             category = Category.CORRECTNESS, // A category is a container for related issues.
-            priority = 3, // It is defined on a scale of 1–10 which we can use to determine which issues to fix first.
+            priority = 6, // It is defined on a scale of 1–10 which we can use to determine which issues to fix first.
             severity = Severity.WARNING, //  Determines if a lint would be treated as a warning or an error while building the app. An error will cause the build to break while a warning would be just printed to console or a file
             implementation = Implementation(  // Scope of the issue that it is interested in like manifest, resource files, java/Kotlin source files
                 RadioButtonDetector::class.java,

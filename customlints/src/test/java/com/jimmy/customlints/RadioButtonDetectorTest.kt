@@ -1,17 +1,20 @@
 package com.jimmy.customlints
 
+import com.android.tools.lint.checks.infrastructure.LintDetectorTest
 import com.android.tools.lint.checks.infrastructure.LintDetectorTest.xml
 import com.android.tools.lint.checks.infrastructure.TestLintTask.lint
+import com.android.tools.lint.detector.api.Detector
+import com.android.tools.lint.detector.api.Issue
 import org.junit.Test
 
-class MyIssueDetectorTest {
+class RadioButtonDetectorTest : LintDetectorTest() {
     @Test
     fun testRadioButton() {
 
         lint()?.files(
             xml(
                 "res/layout/layout_lint_test.xml",
-                """
+                """<?xml version="1.0" encoding="utf-8"?>
                 <merge>
                     <RadioButton
                                 android:layout_width="wrap_content"
@@ -23,9 +26,7 @@ class MyIssueDetectorTest {
                                 />
                 </merge>
             """
-            ).indented()
-        )
-            ?.issues(RadioButtonDetector.ISSUE)
+            ).indented())
             ?.run()
             ?.expectWarningCount(1)
             ?.verifyFixes()
@@ -47,4 +48,9 @@ class MyIssueDetectorTest {
                 ).indented()
             )
     }
+
+    override fun getDetector(): Detector = RadioButtonDetector()
+
+    override fun getIssues(): List<Issue> = listOf(RadioButtonDetector.ISSUE)
+
 }

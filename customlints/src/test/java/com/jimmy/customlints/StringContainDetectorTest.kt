@@ -20,7 +20,7 @@ class StringContainDetectorTest: LintDetectorTest() {
                     """
             ).indented())
             .run()
-            .expectWarningCount(0)
+            .expectWarningCount(1)
             .expect("""
                     src/test/pkg/TestClass1.java:5: Warning: This code mentions lint: Congratulations [ShortUniqueId]
                         private static String s2 = "Let's say it: lint";
