@@ -10,8 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wizeline.bookchallenge.adapters.BookRecyclerAdapter
-import com.wizeline.bookchallenge.locked.Book
-import com.wizeline.bookchallenge.locked.Data
+import com.wizeline.bookchallenge.logic.Intent
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -119,6 +118,15 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+
+        /*
+        The offer() method is a synchronized way to do what the channel’s send() method
+        does without launching a new coroutine. As we have control over this channel and know
+         it has unlimited capacity, this is a safe way to go and makes things easier for us.
+         However, if offer() violates channel’s capacity restrictions or you don’t know them,
+          you should use send() instead.
+         */
+        mainActivityViewModel.intentChannel.offer(Intent.LoadAllBooks)
     }
 
     /**
