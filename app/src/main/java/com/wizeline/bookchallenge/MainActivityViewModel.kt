@@ -7,6 +7,7 @@ import com.wizeline.bookchallenge.logic.Intent
 import com.wizeline.bookchallenge.logic.State
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.channels.consumeEach
 import javax.inject.Inject
 
@@ -16,13 +17,18 @@ class MainActivityViewModel @Inject constructor() : ViewModel() {
     private var book: List<BookWRating>? = null
 
     // state is set by the ViewModel and observed by the View
-    var state: State = State.Idel
+    private var state: State = State.Idel
 
     //  intentChannel property of type Channel<Intent> for the intents
     val intentChannel = Channel<Intent>(Channel.UNLIMITED)
 
-    //stateChannel of type Channel<State> property for handling states
-    private val stateChannel = Channel<State>(Channel.UNLIMITED)
+    /*
+        The advantage of a ConflatedBroadcastChannel is that it drops everything inside whenever
+        a new state is set. This way, we don’t run into any trouble when
+        the state changes happen too fast.
+     */
+    @ExperimentalCoroutinesApi
+    private val stateChannel = ConflatedBroadcastChannel<State>()
 
     private val coroutineExceptionHandler: CoroutineExceptionHandler =
         CoroutineExceptionHandler { _, throwable ->
