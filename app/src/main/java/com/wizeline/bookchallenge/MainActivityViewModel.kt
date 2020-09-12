@@ -7,28 +7,31 @@ import com.wizeline.bookchallenge.logic.Intent
 import com.wizeline.bookchallenge.logic.State
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.channels.consumeEach
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 
 class MainActivityViewModel @Inject constructor() : ViewModel() {
 
-    private var book: List<BookWRating>? = null
-
     // state is set by the ViewModel and observed by the View
-    private var state: State = State.Idel
+    private var bookState: State = State.Idle
 
     //  intentChannel property of type Channel<Intent> for the intents
     val intentChannel = Channel<Intent>(Channel.UNLIMITED)
+    
 
     /*
-        The advantage of a ConflatedBroadcastChannel is that it drops everything inside whenever
-        a new state is set. This way, we don’t run into any trouble when
-        the state changes happen too fast.
+        Changing the state no longer requires a suspending method
+        StateFlow inherits all the benefits of the Flow
+        Nothing gets emitted if there is no subscriber. If we were using basic channels,
+        even if there was no listener, the events would pop up every time they got fired.
      */
     @ExperimentalCoroutinesApi
-    private val stateChannel = ConflatedBroadcastChannel<State>()
+    private val _state = MutableStateFlow<State>(State.Idle)
+    val state: StateFlow<State>
+        get() = _state
 
     private val coroutineExceptionHandler: CoroutineExceptionHandler =
         CoroutineExceptionHandler { _, throwable ->
@@ -39,10 +42,6 @@ class MainActivityViewModel @Inject constructor() : ViewModel() {
             //GlobalScope.launch { println("Caught $throwable") }
         }
 
-    val allBooksList: MutableLiveData<List<BookWRating>> =
-        MutableLiveData()// list of all books observable
-    val filteredBooksList: MutableLiveData<List<BookWRating>> =
-        MutableLiveData() // list of selected set of books for certain cat.
     val loading: MutableLiveData<Boolean> = MutableLiveData()// loading state observable
 
 // book service  client instance
@@ -62,7 +61,7 @@ class MainActivityViewModel @Inject constructor() : ViewModel() {
 
     init {
 
-        if (state == State.Idel) loading.value = false// set loading state to true
+        if (bookState == State.Idle) loading.value = false// set loading state to true
 
         viewModelScope.launch {
             handleIntents()
@@ -79,25 +78,14 @@ class MainActivityViewModel @Inject constructor() : ViewModel() {
      * @see com.wizeline.bookchallenge.Constants
      *
      * runs the computation to filter out the set of books matching the filter criteria
-     * posts results to activity through filteredBooksList liveData observable
      */
     fun filterBooks(catList: List<String>, catMatch: Int) {
         // launch a base coroutine on main thread
-        coroutineScope.launch(Dispatchers.Main) {
-            loading.postValue(true)
-
-            val booksWRate =
-                filterSelectedBookCat(catList, catMatch).sortedByDescending { it.rating }
-
-            filteredBooksList.postValue(booksWRate)
-            loading.postValue(false)
-        }
+        intentChannel.offer(Intent.FilterBooks(catList, catMatch))
     }
 
-    fun getTopRated() = viewModelScope.launch {
-        loading.postValue(true)
-        filteredBooksList.postValue(booksWithRatingFakeStorage.getTopRatedBooks())
-        loading.postValue(false)
+    suspend fun  getTopRated():List<BookWRating>? =  withContext(Dispatchers.IO){
+        return@withContext booksWithRatingFakeStorage.getTopRatedBooks()
     }
 
 
@@ -123,7 +111,7 @@ class MainActivityViewModel @Inject constructor() : ViewModel() {
 
             val booksWRate = mutableListOf<BookWRating>()
 
-            val matchingCats = allBooksList.value?.filter {
+            val matchingCats = booksWithRatingFakeStorage.getAllBooks()?.filter {
                 if (catMatch == Constants.EXCAT_CATEGORY_MATCH) {
                     it.b.categories == catList
                 } else {
@@ -138,34 +126,25 @@ class MainActivityViewModel @Inject constructor() : ViewModel() {
             return@withContext booksWRate
         }
 
-    private fun checkBooksState(bList : List<BookWRating>?): State {
+    private fun checkBooksState(bList : List<BookWRating>?, intent : Intent): State {
+        loading.postValue(false)
         return if (bList != null) {
-            State.BooksLoaded(bList)
+            when (intent){
+                Intent.LoadAllBooks ->  State.BooksLoaded(bList)
+                Intent.LoadTopRated ->  State.TopBooks(bList)
+                Intent.FilterBooks() -> State.FilterBooks(bList)
+                else -> State.Idle
+            }
+
         } else {
             State.Error
         }
     }
 
-    private suspend fun setState(reducer: (State) -> State) {
-        state = reducer(state)
-        when (state) {
-           is State.Error -> loading.postValue(false)
-           is State.Idel -> loading.postValue(false)
-           is State.BooksLoaded -> {
-               val booksLs = (state as State.BooksLoaded).booksList
-                if (booksLs != null) allBooksList.postValue(booksLs)
-                loading.postValue(false)
-            }
-
-        }
-        stateChannel.send(state)
-    }
-
     private suspend fun loadAssets():List<BookWRating>? =
        withContext(Dispatchers.IO) {
-            // simulate data loaded after 1.5 sec
+            // simulate data loaded after 2 sec
             delay(2000)
-
             return@withContext booksWithRatingFakeStorage.getAllBooks()
         }
 
@@ -174,13 +153,23 @@ class MainActivityViewModel @Inject constructor() : ViewModel() {
     private suspend fun handleIntents() {
         intentChannel.consumeEach { intent ->
             when (intent) {
-                Intent.LoadAllBooks -> {
+
+               is  Intent.LoadAllBooks -> {
                     loading.postValue(true)// set loading state to true
                     val allBooksList = loadAssets()
-                    setState {
-                        checkBooksState(allBooksList)
-                    }
-                }
+                    _state.value = checkBooksState(allBooksList, Intent.LoadAllBooks)
+               }
+              is   Intent.LoadTopRated->{
+                    loading.postValue(true)// set loading state to true
+                    val topBooks =  getTopRated()
+                    _state.value = checkBooksState(topBooks, Intent.LoadTopRated)
+              }
+               is  Intent.FilterBooks->{
+                   loading.postValue(true)// set loading state to true
+                   val filteredBooks =  filterSelectedBookCat(intent.catList!!, intent.catMatch!!)
+                           .sortedByDescending { it.rating }
+                   _state.value = checkBooksState(filteredBooks,  Intent.FilterBooks())
+               }
             }
         }
     }

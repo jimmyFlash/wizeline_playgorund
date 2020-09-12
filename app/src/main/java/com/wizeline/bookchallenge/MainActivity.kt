@@ -7,11 +7,15 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wizeline.bookchallenge.adapters.BookRecyclerAdapter
 import com.wizeline.bookchallenge.logic.Intent
+import com.wizeline.bookchallenge.logic.State
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 
@@ -70,31 +74,6 @@ class MainActivity : AppCompatActivity() {
             displayProg(it)
         })
 
-        mainActivityViewModel.filteredBooksList.observe(this, Observer{
-            if(it.isNotEmpty()) {
-                filteredBookCatList.clear()
-                filteredBookCatList.addAll(it)
-                adapter.swap(filteredBookCatList)
-            }
-        })
-
-        // observer the full list of books loaded
-        mainActivityViewModel.allBooksList.observe(this, Observer{
-
-            // populate the catList with extracted categories
-            catList =
-                it.map { bookWrating ->
-                        bookWrating.b.categories.joinToString ()
-                   }.distinct()
-                    .sortedDescending()
-                    .reversed() as MutableList<String>
-            catList.add(0, "Top Rated Books")
-
-            // populate the spinner with cat. data form filtered cat. titles
-            catSpinner.adapter = ArrayAdapter(this,
-                android.R.layout.simple_spinner_item, catList)
-        })
-
         // register item selected listener to the spinner
         catSpinner.onItemSelectedListener= object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -107,12 +86,17 @@ class MainActivity : AppCompatActivity() {
 
 
                when(position){
-                  0 -> mainActivityViewModel.getTopRated()
-                   else ->
+                   0 ->  mainActivityViewModel.intentChannel.offer(Intent.LoadTopRated)
+                   else -> {
                        // call VM method that filters the list of all books and returns on the matching selected
                        // category or a category that contains this category as subset based on the 2nd argument
                        // constant
-                       mainActivityViewModel.filterBooks( convterStringToList (bookCat), Constants.EXCAT_CATEGORY_MATCH)
+                       val stringFilerList = convterStringToList(bookCat)
+                       mainActivityViewModel.filterBooks(
+                           stringFilerList,
+                           Constants.EXCAT_CATEGORY_MATCH
+                       )
+                   }
 
                }
             }
@@ -126,7 +110,49 @@ class MainActivity : AppCompatActivity() {
          However, if offer() violates channel’s capacity restrictions or you don’t know them,
           you should use send() instead.
          */
-        mainActivityViewModel.intentChannel.offer(Intent.LoadAllBooks)
+         mainActivityViewModel.intentChannel.offer(Intent.LoadAllBooks)
+
+        mainActivityViewModel.state
+            .onEach { state ->  handleState(state)}
+            .launchIn(lifecycleScope)
+    }
+
+    private fun handleState(state: State) {
+        when(state){
+           is  State.Idle -> Unit
+           is  State.Error -> handleErrorUi()
+           is  State.BooksLoaded -> allBooksSuccess(state.booksList)
+           is  State.TopBooks -> filteredBooksSuccess(state.topBook!!)
+           is  State.FilterBooks -> filteredBooksSuccess(state.filterList)
+        }
+    }
+
+    private fun allBooksSuccess(booksList: List<BookWRating>?) {
+
+        // populate the catList with extracted categories
+        catList =
+            booksList?.map { bookWrating ->
+                bookWrating.b.categories.joinToString ()
+            }?.distinct()
+                ?.sortedDescending()
+                ?.reversed() as MutableList<String>
+        catList.add(0, "Top Rated Books")
+
+        // populate the spinner with cat. data form filtered cat. titles
+        catSpinner.adapter = ArrayAdapter(this,
+            android.R.layout.simple_spinner_item, catList)
+    }
+
+    private fun filteredBooksSuccess(booksList: List<BookWRating>) {
+        if(booksList.isNotEmpty()) {
+            filteredBookCatList.clear()
+            filteredBookCatList.addAll(booksList)
+            adapter.swap(filteredBookCatList)
+        }
+    }
+
+    private fun handleErrorUi() {
+        TODO("Not yet implemented")
     }
 
     /**
