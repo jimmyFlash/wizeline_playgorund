@@ -64,12 +64,14 @@ object Timber{
 object AndroidX{
     private object Versions{
         const val architecture= "1.1.1"
-        const val constraintlayout= "1.1.3"
-        const val recyclerview= "1.1.0"
-        const val lifecyclextensions= "2.2.0"
+        const val constraintlayout = "1.1.3"
+        const val recyclerview = "1.1.0"
+        const val lifecyclextensions = "2.2.0"
         const val appcompat      = "1.0.2"
         const val ktx         = "1.0.2"
+        const val lifecycleRuntimeKtx  = "2.2.0"
     }
+
     const val android_app_compat = "androidx.appcompat:appcompat:${Versions.appcompat}"
     const val android_constrain_layout =
         "androidx.constraintlayout:constraintlayout:${Versions.constraintlayout}"
@@ -78,14 +80,18 @@ object AndroidX{
     const val android_lifecycle_extensions =
         "androidx.lifecycle:lifecycle-extensions:${Versions.lifecyclextensions}"
     const val android_core_ktx = "androidx.core:core-ktx:${Versions.ktx}"
+    const val lifecycle_runtime_ktx =
+        "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycleRuntimeKtx}"
 }
 
 object KotlinLibs{
     private object Versions{
-        const val coroutines  = "1.3.0"
+        const val coroutines  = "1.3.6"
         const val viewmodelKtx = "2.2.0"
     }
     const val kotlin_lib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    // jdk8 coroutines integration module
+    const val kotlin_lib_jdk8 = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
     const val kotlin_coroutines_core =
         "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
     const val kotlin_coroutine_android =

@@ -41,6 +41,7 @@ dependencies {
     implementation (AndroidX.android_recyclerview)
     implementation (AndroidX.android_lifecycle_extensions)
     implementation (AndroidX.android_core_ktx)
+    implementation (AndroidX.lifecycle_runtime_ktx)
 
     implementation (Dagger.dagger)
     kapt (Dagger.dagger_compiler)
