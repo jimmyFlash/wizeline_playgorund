@@ -4,6 +4,7 @@ import com.android.tools.lint.client.api.IssueRegistry
 import com.android.tools.lint.detector.api.CURRENT_API
 import com.android.tools.lint.detector.api.Issue
 import com.jimmy.customlints.AndroidLogDetector
+import com.jimmy.customlints.LinearLayoutUsageDetector
 import com.jimmy.customlints.RadioButtonDetector
 import com.jimmy.customlints.StringContainDetector
 
@@ -18,6 +19,6 @@ class MyIssueRegistry  : IssueRegistry(){
    get() = listOf(
        RadioButtonDetector.ISSUE,
        AndroidLogDetector.ISSUE,
-       StringContainDetector.ISSUE
-   )
+       StringContainDetector.ISSUE,
+       LinearLayoutUsageDetector.ISSUE )
  }
