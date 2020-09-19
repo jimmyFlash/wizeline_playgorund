@@ -14,19 +14,14 @@ class RadioButtonDetectorTest : LintDetectorTest() {
         lint()?.files(
             xml(
                 "res/layout/layout_lint_test.xml",
-                """<?xml version="1.0" encoding="utf-8"?>
-                <merge>
-                    <RadioButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                />
-                </merge>
-            """
-            ).indented())
+                """
+                        <RadioButton
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                        />
+                        """
+            ))
             ?.run()
             ?.expectWarningCount(1)
             ?.verifyFixes()
@@ -35,18 +30,13 @@ class RadioButtonDetectorTest : LintDetectorTest() {
                 xml(
                     "res/layout/layout_lint_test.xml",
                     """
-                <merge>
-                     <com.wizeline.bookchallenge.CustomRadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </merge>
-            """
-                ).indented()
-            )
+                        <com.wizeline.bookchallenge.CustomRadioButton
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                        />
+                        """
+                ))
     }
 
     override fun getDetector(): Detector = RadioButtonDetector()
