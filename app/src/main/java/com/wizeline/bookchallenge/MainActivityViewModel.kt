@@ -43,6 +43,7 @@ class MainActivityViewModel @Inject constructor() : ViewModel() {
         }
 
     val loading: MutableLiveData<Boolean> = MutableLiveData()// loading state observable
+    val catsList: MutableLiveData<List<String>> = MutableLiveData()// loading state observable
 
 // book service  client instance
 //    @Inject
@@ -66,6 +67,12 @@ class MainActivityViewModel @Inject constructor() : ViewModel() {
         viewModelScope.launch {
             handleIntents()
         }
+    }
+
+    fun updateCategories(loadedCatLst : MutableList<String>){
+
+        loadedCatLst.add(0, "Top Rated Books")
+        catsList.value = loadedCatLst
     }
 
 

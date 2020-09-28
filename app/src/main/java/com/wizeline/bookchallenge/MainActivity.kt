@@ -82,6 +82,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
+
                 val bookCat = catList[position] // get the selected category string
 
 
@@ -103,18 +104,29 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        /*
-        The offer() method is a synchronized way to do what the channel’s send() method
-        does without launching a new coroutine. As we have control over this channel and know
-         it has unlimited capacity, this is a safe way to go and makes things easier for us.
-         However, if offer() violates channel’s capacity restrictions or you don’t know them,
-          you should use send() instead.
-         */
-         mainActivityViewModel.intentChannel.offer(Intent.LoadAllBooks)
+        if(savedInstanceState == null){
+            /*
+                The offer() method is a synchronized way to do what the channel’s send() method
+                does without launching a new coroutine. As we have control over this channel and know
+                it has unlimited capacity, this is a safe way to go and makes things easier for us.
+                However, if offer() violates channel’s capacity restrictions or you don’t know them,
+                you should use send() instead.
+            */
+
+            mainActivityViewModel.intentChannel.offer(Intent.LoadAllBooks)
+        }
+
 
         mainActivityViewModel.state
             .onEach { state ->  handleState(state)}
             .launchIn(lifecycleScope)
+
+        mainActivityViewModel.catsList.observe(this, Observer {
+            catList = it as MutableList<String>
+            // populate the spinner with cat. data form filtered cat. titles
+            catSpinner.adapter = ArrayAdapter(this,
+                android.R.layout.simple_spinner_item, catList)
+        })
     }
 
     private fun handleState(state: State) {
@@ -134,13 +146,11 @@ class MainActivity : AppCompatActivity() {
             booksList?.map { bookWrating ->
                 bookWrating.b.categories.joinToString ()
             }?.distinct()
-                ?.sortedDescending()
-                ?.reversed() as MutableList<String>
-        catList.add(0, "Top Rated Books")
+            ?.sortedDescending()
+            ?.reversed() as MutableList<String>
 
-        // populate the spinner with cat. data form filtered cat. titles
-        catSpinner.adapter = ArrayAdapter(this,
-            android.R.layout.simple_spinner_item, catList)
+        mainActivityViewModel.updateCategories(catList)
+
     }
 
     private fun filteredBooksSuccess(booksList: List<BookWRating>) {
