@@ -78,7 +78,7 @@ fun BaseExtension.useDefaultBuildTypes() = buildTypes {
         resValue ("string", "app_name", getAppName(BuildTypeNum.RELEASE))
         signingConfig = signingConfigs.getByName("release")
         val configuration = getConfiguration()
-        manifestPlaceholders = mapOf("secret" to configuration.secret)
+        setManifestPlaceholders(mapOf("secret" to configuration.secret))
     }
 
     getByName(BuildTypes.debug) {
@@ -86,6 +86,6 @@ fun BaseExtension.useDefaultBuildTypes() = buildTypes {
         resValue ("string", "app_name", getAppName(BuildTypeNum.DEBUG))
         signingConfig = signingConfigs.getByName("debug")
         val configuration = getConfiguration()
-        manifestPlaceholders = mapOf("secret" to configuration.secret)
+        setManifestPlaceholders(mapOf("secret" to configuration.secret))
     }
 }
