@@ -1,5 +1,5 @@
 const val  kotlinVersion     = "1.3.71"
-const val gradleVersion      = "4.0.0"
+const val gradleVersion      = "4.1.0"
 
 object AndroidSDK {
     const val compileSdk = 29

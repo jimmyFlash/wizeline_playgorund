@@ -3,7 +3,7 @@ plugins {
 }
 
 val kotlinVersion     = "1.3.71"
-val gradleVersion      = "4.0.0"
+val gradleVersion      = "4.1.0"
 val okhttp      = "4.3.1"
 
 repositories {
