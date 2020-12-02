@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.wizeline.bookchallenge.adapters.BookRecyclerAdapter
 import com.wizeline.bookchallenge.logic.Intent
 import com.wizeline.bookchallenge.logic.State
-import kotlinx.android.synthetic.main.activity_main.*
+import com.wizeline.bookchallenge.databinding.ActivityMainBinding
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -27,6 +27,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var mainActivityViewModelFactory: ViewModelProvider.Factory
 
     lateinit var mainActivityViewModel: MainActivityViewModel
+
+    private lateinit var binding: ActivityMainBinding
 
     // mutable list of rated books holder
     private var filteredBookCatList: MutableList<BookWRating> = mutableListOf()
@@ -46,7 +48,9 @@ class MainActivity : AppCompatActivity() {
         // and populates @Inject fields with objects from the graph
         (application as MyApplication).appComponent.inject(this)
 
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         supportActionBar?.title = BuildConfig.APP_NAME
 
@@ -57,17 +61,17 @@ class MainActivity : AppCompatActivity() {
 
         // set up the recycler view display and divider
         linearLayoutManager = LinearLayoutManager(this)
-        bookList.layoutManager = linearLayoutManager
+        binding.bookList.layoutManager = linearLayoutManager
         val dividerItemDecoration = DividerItemDecoration(
-            bookList.context,
+            binding.bookList.context,
             linearLayoutManager.orientation
         )
-        bookList.addItemDecoration(dividerItemDecoration)
+        binding.bookList.addItemDecoration(dividerItemDecoration)
 
         // instansiate the RV adapter
         adapter = BookRecyclerAdapter()
 
-        bookList.adapter = adapter
+        binding.bookList.adapter = adapter
 
         // observe the loading state form VM and update ui
         mainActivityViewModel.loading.observe(this, Observer {
@@ -75,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         // register item selected listener to the spinner
-        catSpinner.onItemSelectedListener= object : AdapterView.OnItemSelectedListener {
+        binding.catSpinner.onItemSelectedListener= object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 //
             }
@@ -124,7 +128,7 @@ class MainActivity : AppCompatActivity() {
         mainActivityViewModel.catsList.observe(this, Observer {
             catList = it as MutableList<String>
             // populate the spinner with cat. data form filtered cat. titles
-            catSpinner.adapter = ArrayAdapter(this,
+            binding.catSpinner.adapter = ArrayAdapter(this,
                 android.R.layout.simple_spinner_item, catList)
         })
     }
@@ -183,11 +187,11 @@ class MainActivity : AppCompatActivity() {
     fun displayProg(loading : Boolean){
 
         if(loading){
-            progres.visibility = View.VISIBLE
-            bookList.visibility = View.INVISIBLE
+            binding.progres.visibility = View.VISIBLE
+            binding.bookList.visibility = View.INVISIBLE
         }else{
-            progres.visibility = View.GONE
-            bookList.visibility = View.VISIBLE
+            binding.progres.visibility = View.GONE
+            binding.bookList.visibility = View.VISIBLE
         }
     }
 
