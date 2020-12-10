@@ -3,7 +3,6 @@ package com.wizeline.bookchallenge
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -11,9 +10,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wizeline.bookchallenge.adapters.BookRecyclerAdapter
+import com.wizeline.bookchallenge.adapters.spinners.GenericSpinnerAdapter1
+import com.wizeline.bookchallenge.databinding.ActivityMainBinding
 import com.wizeline.bookchallenge.logic.Intent
 import com.wizeline.bookchallenge.logic.State
-import com.wizeline.bookchallenge.databinding.ActivityMainBinding
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -34,12 +34,14 @@ class MainActivity : AppCompatActivity() {
     private var filteredBookCatList: MutableList<BookWRating> = mutableListOf()
     // layout manager for the recycler-view display
     private lateinit var linearLayoutManager: LinearLayoutManager
-    // displayed book for a certain catagory adapter
+    // displayed book for a certain category adapter
     private lateinit var adapter: BookRecyclerAdapter
 
 
     // list that hold strings representing the book categories extracted form loaded books
     private var catList = mutableListOf<String>()
+
+    private lateinit var adaptsspnr :GenericSpinnerAdapter1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,13 +88,11 @@ class MainActivity : AppCompatActivity() {
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
-
-                val bookCat = catList[position] // get the selected category string
-
-
                when(position){
-                   0 ->  mainActivityViewModel.intentChannel.offer(Intent.LoadTopRated)
+                   0 -> Unit
+                   1 ->  mainActivityViewModel.intentChannel.offer(Intent.LoadTopRated)
                    else -> {
+                       val bookCat = catList[position-1]// get the selected category string
                        // call VM method that filters the list of all books and returns on the matching selected
                        // category or a category that contains this category as subset based on the 2nd argument
                        // constant
@@ -128,8 +128,9 @@ class MainActivity : AppCompatActivity() {
         mainActivityViewModel.catsList.observe(this, Observer {
             catList = it as MutableList<String>
             // populate the spinner with cat. data form filtered cat. titles
-            binding.catSpinner.adapter = ArrayAdapter(this,
-                android.R.layout.simple_spinner_item, catList)
+            adaptsspnr =  GenericSpinnerAdapter1(this, catList, "Choose a category")
+            binding.catSpinner.adapter = adaptsspnr
+            binding.catSpinner.setSelection(1)
         })
     }
 
@@ -140,6 +141,7 @@ class MainActivity : AppCompatActivity() {
            is  State.BooksLoaded -> allBooksSuccess(state.booksList)
            is  State.TopBooks -> filteredBooksSuccess(state.topBook!!)
            is  State.FilterBooks -> filteredBooksSuccess(state.filterList)
+           is  State.Loading -> Unit
         }
     }
 
@@ -184,7 +186,7 @@ class MainActivity : AppCompatActivity() {
      *  being loaded
      *  @param [loading] flag to indicate whether it's loading(true) or not (false)
      */
-    fun displayProg(loading : Boolean){
+    private fun displayProg(loading : Boolean){
 
         if(loading){
             binding.progres.visibility = View.VISIBLE
