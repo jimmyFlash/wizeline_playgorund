@@ -5,7 +5,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary">
+        android:background="@android:color/transparent"
+        >
 
         <TextView
             android:id="@+id/item"
@@ -16,8 +17,9 @@
             app:layout_constraintTop_toTopOf="parent"
             android:textSize="14sp"
             android:ellipsize="end"
+            android:textStyle="bold"
             android:padding="8dp"
-            android:textColor="@android:color/white"
+            android:textColor="@color/colorPrimaryDark"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
