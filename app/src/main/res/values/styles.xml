@@ -10,7 +10,7 @@
 
     <style name="SpinnerTheme" parent="Widget.AppCompat.Spinner">
         <item name="android:background">@drawable/spinner_stroke_downarrow</item>
-        <item name="android:dropDownVerticalOffset">50dp</item>
+        <item name="android:dropDownVerticalOffset">@dimen/min_mar_pad</item>
         <item name="android:dropDownHorizontalOffset">0dp</item>
     </style>
 
