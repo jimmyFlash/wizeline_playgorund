@@ -17,6 +17,9 @@ fun PluginDependenciesSpec.kotlinAndroidExt(): PluginDependencySpec =
 fun PluginDependenciesSpec.kotlinKapt(): PluginDependencySpec =
     kotlin("kapt")
 
+fun PluginDependenciesSpec.navigationSafeArgs(): PluginDependencySpec =
+    id("androidx.navigation.safeargs")
+
 fun PluginDependenciesSpec.dependencyUpdates(): PluginDependencySpec =
     id("com.github.ben-manes.versions").version("0.29.0")
 

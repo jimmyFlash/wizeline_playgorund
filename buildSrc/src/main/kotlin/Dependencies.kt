@@ -34,8 +34,14 @@ object DefaultConfig {
 
 object BuildPlugins {
 
+    object Version {
+        const val navigationSafeArgs = "1.0.0"
+    }
     const val androidGradlePlugin = "com.android.tools.build:gradle:$gradleVersion"
     const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+
+    const val navigationSafeArgsPlugin =
+        "android.arch.navigation:navigation-safe-args-gradle-plugin:${Version.navigationSafeArgs}"
 
     const val taskTypeClean = "clean"
 
@@ -70,6 +76,7 @@ object AndroidX{
         const val appcompat      = "1.0.2"
         const val ktx         = "1.0.2"
         const val lifecycleRuntimeKtx  = "2.2.0"
+        const val navigationKtx = "2.2.2"
     }
 
     const val android_app_compat = "androidx.appcompat:appcompat:${Versions.appcompat}"
@@ -82,6 +89,9 @@ object AndroidX{
     const val android_core_ktx = "androidx.core:core-ktx:${Versions.ktx}"
     const val lifecycle_runtime_ktx =
         "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycleRuntimeKtx}"
+
+    const val navigationComp = "androidx.navigation:navigation-fragment-ktx:${Versions.navigationKtx}"
+    const val navigationUi = "androidx.navigation:navigation-ui-ktx:${Versions.navigationKtx}"
 }
 
 object KotlinLibs{

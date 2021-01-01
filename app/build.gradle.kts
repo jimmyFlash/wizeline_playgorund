@@ -5,6 +5,10 @@ plugins {
     kotlinKapt()
 //    ktlint(includeVersion = false)
 //    detekt(includeVersion = false)
+
+    /*The safe args plugin ensures type-safe navigations and passing of arguments between destinations.
+This plugin generates simple object and builder classes for navigation.*/
+    navigationSafeArgs()
 }
 
 
@@ -47,6 +51,10 @@ dependencies {
 
     implementation (Dagger.dagger)
     kapt (Dagger.dagger_compiler)
+
+    // Navigation Component
+    implementation (AndroidX.navigationComp)
+    implementation (AndroidX.navigationUi)
 
 }
 
