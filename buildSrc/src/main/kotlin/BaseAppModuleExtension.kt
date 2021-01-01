@@ -39,6 +39,11 @@ fun BaseAppModuleExtension.setAppConfig() {
 
         buildConfigString("APP_NAME", getCustomProperty ("./config/common.properties"))
     }
+
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
 }
 
 fun BaseExtension.setDefaultConfig() {
