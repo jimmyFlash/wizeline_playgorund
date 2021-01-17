@@ -3,6 +3,7 @@ package com.wizeline.bookchallenge.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.wizeline.bookchallenge.MainActivityViewModel
+import com.wizeline.bookchallenge.MainFragmentViewModel
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
@@ -43,5 +44,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MainActivityViewModel::class)
     internal abstract fun provideMainActivityViewModel(viewModel: MainActivityViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MainFragmentViewModel::class)
+    internal abstract fun provideMainFragmentViewModel(viewModel: MainFragmentViewModel): ViewModel
     //Add more ViewModels here
 }

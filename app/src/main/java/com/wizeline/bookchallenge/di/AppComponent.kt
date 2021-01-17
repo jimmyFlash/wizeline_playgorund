@@ -2,6 +2,7 @@ package com.wizeline.bookchallenge.di
 
 import android.content.Context
 import com.wizeline.bookchallenge.MainActivity
+import com.wizeline.bookchallenge.MainFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -18,5 +19,6 @@ interface AppComponent {
     }
 
     fun inject(activity : MainActivity)
+    fun inject(mainFragment: MainFragment)
 
 }
