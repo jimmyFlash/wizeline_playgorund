@@ -38,12 +38,14 @@ class MainFragment : Fragment() {
     // layout manager for the recycler-view display
     private lateinit var linearLayoutManager: LinearLayoutManager
     // displayed book for a certain category adapter
-    private lateinit var adapter: BookRecyclerAdapter
+    private  val adapter: BookRecyclerAdapter = BookRecyclerAdapter()
 
     // list that hold strings representing the book categories extracted form loaded books
     private var catList = mutableListOf<String>()
 
-    private lateinit var adaptsspnr : GenericSpinnerAdapter1
+    private var adaptsspnr : GenericSpinnerAdapter1 =  GenericSpinnerAdapter1(
+        listOf<String>(),
+        "Choose a category")
 
     companion object {
         fun newInstance() = MainFragment()
@@ -69,9 +71,6 @@ class MainFragment : Fragment() {
             linearLayoutManager.orientation
         )
         mainFrgamentBinding.bookList.addItemDecoration(dividerItemDecoration)
-
-        // instansiate the RV adapter
-        adapter = BookRecyclerAdapter()
 
         mainFrgamentBinding.bookList.adapter = adapter
 
@@ -181,15 +180,9 @@ class MainFragment : Fragment() {
     }
 
     private fun createCustomAdapterSetup(catList :MutableList<String>, selection: Int = 1){
-        adaptsspnr = context?.let { it1 ->
-            GenericSpinnerAdapter1(
-                it1,
-                catList,
-                "Choose a category"
-            )
-        }!!
+        adaptsspnr.updateList(catList)
+
         mainFrgamentBinding.catSpinner.adapter = adaptsspnr
-        // todo keep track of selected spinner index in saved state
         mainFrgamentBinding.catSpinner.setSelection(selection)
     }
 

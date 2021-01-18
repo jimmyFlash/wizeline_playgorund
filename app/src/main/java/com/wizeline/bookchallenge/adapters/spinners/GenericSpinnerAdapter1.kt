@@ -1,6 +1,5 @@
 package com.wizeline.bookchallenge.adapters.spinners
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +9,7 @@ import com.wizeline.bookchallenge.databinding.PromptItemBinding
 import com.wizeline.bookchallenge.databinding.SpinnerItemBinding
 
 class GenericSpinnerAdapter1(
-    private val ctx: Context,
-    private val elements: List<String>,
+    private var elements: List<String>,
     private val prompt: String
 ) : BaseAdapter() {
 
@@ -52,6 +50,12 @@ class GenericSpinnerAdapter1(
         itemsViewHolder.view.tag = itemsViewHolder
         itemsViewHolder.bind(getItem(position))
         return itemsViewHolder.view
+    }
+
+    fun updateList(newList : List<String>){
+        elements = newList
+        backing  =  IntArray(elements.size + 1)
+        notifyDataSetChanged()
     }
 
 
