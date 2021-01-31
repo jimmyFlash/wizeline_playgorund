@@ -56,6 +56,10 @@ dependencies {
     implementation (AndroidX.navigationComp)
     implementation (AndroidX.navigationUi)
 
+    implementation(ImageLibs.picasso)
+
+    implementation(MaterialComponents.material)
+
 }
 
 //ktlint {

@@ -24,7 +24,7 @@ object Dagger {
 
 object DefaultConfig {
     const val applicationID = "com.wizeline.bookchallenge"
-    const val minSdk = 16
+    const val minSdk = 21
     const val targetSdk = 29
     const val versionCode = 1
     const val versionName = "1.0.0"
@@ -119,4 +119,18 @@ object TestLibs {
     const val junit  = "junit:junit:${Versions.jUnit}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
     const val runner = "androidx.test:runner:${Versions.runner}"
+}
+
+object ImageLibs{
+    private object Versions{
+        const val picasso_version = "2.71828"
+    }
+    const val picasso  = "com.squareup.picasso:picasso:${Versions.picasso_version}"
+}
+
+object MaterialComponents{
+    private object Versions{
+        const val material_version = "1.3.0-rc01"
+    }
+    const val material  = "com.google.android.material:material:${Versions.material_version}"
 }
