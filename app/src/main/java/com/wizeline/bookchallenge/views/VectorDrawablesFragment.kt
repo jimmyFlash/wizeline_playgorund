@@ -1,6 +1,6 @@
 package com.wizeline.bookchallenge.views
 
-import android.content.Intent
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.wizeline.bookchallenge.MyApplication
 import com.wizeline.bookchallenge.R
 import com.wizeline.bookchallenge.adapters.EmojiAdapter
 import com.wizeline.bookchallenge.databinding.VectorDrawablesFragmentBinding
@@ -67,6 +68,11 @@ class VectorDrawablesFragment : Fragment(), View.OnClickListener, EmojiAdapter.E
         setupObserver()
         viewModel.fetchEmojis()
 
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as MyApplication).appComponent.inject(this)
     }
 
 

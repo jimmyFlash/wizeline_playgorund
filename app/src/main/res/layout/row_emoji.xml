@@ -35,6 +35,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
   <data>
+    <import type="androidx.core.content.ContextCompat" />
     <variable
         name="emoji"
         type="com.wizeline.bookchallenge.logic.Emoji" />
@@ -51,10 +52,11 @@
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintBottom_toTopOf="@+id/emojiNameTextView"
       tools:src="@tools:sample/avatars"
-      android:src="@{emoji.resourceId}"
+      android:src="@{ContextCompat.getDrawable(context,emoji.resourceId)}"
       android:layout_margin="8dp"
       android:layout_width="72dp"
-      android:layout_height="72dp" />
+      android:layout_height="72dp"
+      tools:ignore="ContentDescription" />
 
     <TextView
       android:id="@+id/emojiNameTextView"
