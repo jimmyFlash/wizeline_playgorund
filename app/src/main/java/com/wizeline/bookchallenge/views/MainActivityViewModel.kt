@@ -1,8 +1,11 @@
-package com.wizeline.bookchallenge
+package com.wizeline.bookchallenge.views
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.wizeline.bookchallenge.Constants
+import com.wizeline.bookchallenge.logic.BookWRating
+import com.wizeline.bookchallenge.logic.BooksWithRatingFakeStorage
 import com.wizeline.bookchallenge.logic.Intent
 import com.wizeline.bookchallenge.logic.State
 import kotlinx.coroutines.*

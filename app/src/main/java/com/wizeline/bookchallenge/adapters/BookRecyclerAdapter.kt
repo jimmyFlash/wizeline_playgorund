@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.wizeline.bookchallenge.BookWRating
+import com.wizeline.bookchallenge.logic.BookWRating
 import com.wizeline.bookchallenge.R
 import com.wizeline.bookchallenge.databinding.RecyclerviewItemRowBinding
 

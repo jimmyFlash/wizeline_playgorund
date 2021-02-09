@@ -1,8 +1,7 @@
-package com.wizeline.bookchallenge
+package com.wizeline.bookchallenge.views
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,14 +13,21 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.wizeline.bookchallenge.BuildConfig
+import com.wizeline.bookchallenge.Constants
+import com.wizeline.bookchallenge.MyApplication
 import com.wizeline.bookchallenge.adapters.BookRecyclerAdapter
 import com.wizeline.bookchallenge.adapters.spinners.GenericSpinnerAdapter1
 import com.wizeline.bookchallenge.databinding.MainFragmentBinding
+import com.wizeline.bookchallenge.logic.BookWRating
 import com.wizeline.bookchallenge.logic.Intent
 import com.wizeline.bookchallenge.logic.State
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 
 class MainFragment : Fragment() {

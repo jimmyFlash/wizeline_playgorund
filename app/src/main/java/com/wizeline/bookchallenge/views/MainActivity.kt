@@ -1,21 +1,10 @@
-package com.wizeline.bookchallenge
+package com.wizeline.bookchallenge.views
 
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.wizeline.bookchallenge.adapters.BookRecyclerAdapter
-import com.wizeline.bookchallenge.adapters.spinners.GenericSpinnerAdapter1
+import com.wizeline.bookchallenge.MyApplication
 import com.wizeline.bookchallenge.databinding.ActivityMainBinding
-import com.wizeline.bookchallenge.logic.Intent
-import com.wizeline.bookchallenge.logic.State
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 

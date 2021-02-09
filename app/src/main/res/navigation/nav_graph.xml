@@ -6,9 +6,13 @@
 
     <fragment
         android:id="@+id/mainViewFragment"
-        android:name="com.wizeline.bookchallenge.MainFragment"
+        android:name="com.wizeline.bookchallenge.views.MainFragment"
         android:label="main_view_fragment"
-        tools:layout="@layout/main_fragment"
-        />
+        tools:layout="@layout/main_fragment" />
+    <fragment
+        android:id="@+id/vectorDrawablesFragment"
+        android:name="com.wizeline.bookchallenge.views.VectorDrawablesFragment"
+        android:label="vector_drawables_fragment"
+        tools:layout="@layout/vector_drawables_fragment" />
 
 </navigation>

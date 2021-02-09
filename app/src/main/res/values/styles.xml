@@ -8,6 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="BorderlessButton" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:background">?android:selectableItemBackgroundBorderless</item>
+        <item name="android:minHeight">48dip</item>
+        <item name="android:minWidth">48dip</item>
+    </style>
+
     <style name="SpinnerTheme" parent="Widget.AppCompat.Spinner">
         <item name="android:background">@drawable/spinner_stroke_downarrow</item>
         <item name="android:dropDownVerticalOffset">@dimen/min_mar_pad</item>

@@ -1,8 +1,9 @@
 package com.wizeline.bookchallenge.di
 
 import android.content.Context
-import com.wizeline.bookchallenge.MainActivity
-import com.wizeline.bookchallenge.MainFragment
+import com.wizeline.bookchallenge.views.MainActivity
+import com.wizeline.bookchallenge.views.MainFragment
+import com.wizeline.bookchallenge.views.VectorDrawablesFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -20,5 +21,6 @@ interface AppComponent {
 
     fun inject(activity : MainActivity)
     fun inject(mainFragment: MainFragment)
+    fun inject(vectorDrawablesFragment: VectorDrawablesFragment)
 
 }

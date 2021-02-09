@@ -1,4 +1,4 @@
-package com.wizeline.bookchallenge
+package com.wizeline.bookchallenge.logic
 
 import com.wizeline.bookchallenge.locked.Book
 

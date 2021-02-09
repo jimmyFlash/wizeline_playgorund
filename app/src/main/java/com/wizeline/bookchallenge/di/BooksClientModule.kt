@@ -1,6 +1,6 @@
 package com.wizeline.bookchallenge.di
 
-import com.wizeline.bookchallenge.BooksClientImpUpdate
+import com.wizeline.bookchallenge.logic.BooksClientImpUpdate
 import com.wizeline.bookchallenge.locked.BooksClient
 import dagger.Binds
 import dagger.Module

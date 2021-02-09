@@ -11,7 +11,7 @@
 
     <variable
             name="bookRating"
-            type="com.wizeline.bookchallenge.BookWRating" />
+            type="com.wizeline.bookchallenge.logic.BookWRating" />
   </data>
 
   <androidx.constraintlayout.widget.ConstraintLayout
