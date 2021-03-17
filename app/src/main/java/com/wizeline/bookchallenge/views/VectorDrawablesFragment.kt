@@ -5,7 +5,9 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -18,6 +20,8 @@ import com.wizeline.bookchallenge.adapters.EmojiAdapter
 import com.wizeline.bookchallenge.databinding.VectorDrawablesFragmentBinding
 import com.wizeline.bookchallenge.logic.Emoji
 import com.wizeline.bookchallenge.utils.saveFile
+import com.wizeline.bookchallenge.views.customeviews.InteractiveImageView
+import com.wizeline.bookchallenge.views.customeviews.InteractiveViewPort
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -56,6 +60,9 @@ class VectorDrawablesFragment : Fragment(), View.OnClickListener, EmojiAdapter.E
 
         vectorDrawablesFragmentBinding.emojiRecyclerView.adapter = emojiAdapter
 
+        vectorDrawablesFragmentBinding.deleteButton.setOnClickListener(this)
+        vectorDrawablesFragmentBinding.saveButton.setOnClickListener(this)
+
         return vectorDrawablesFragmentBinding.root
     }
 
@@ -77,16 +84,14 @@ class VectorDrawablesFragment : Fragment(), View.OnClickListener, EmojiAdapter.E
 
 
     override fun onClick(v: View?) {
-       /*
-       when (v.id) {
+       when (v?.id) {
           R.id.deleteButton -> {
-            emojiContainerFrameLayout.removeAllViews()
+            vectorDrawablesFragmentBinding.emojiContainerFrameLayout.removeAllViews()
           }
           R.id.saveButton -> {
             saveBitmapToFile()
           }
         }
-       */
     }
 
     private fun saveBitmapToFile() {
@@ -115,7 +120,17 @@ class VectorDrawablesFragment : Fragment(), View.OnClickListener, EmojiAdapter.E
     }
 
     override fun onEmojiTapped(emoji: Emoji) {
-        TODO("Not yet implemented")
+        val image = InteractiveViewPort(this@VectorDrawablesFragment.requireContext(), 5)
+        val layoutParams = FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.MATCH_PARENT
+            /*resources.getDimensionPixelOffset(R.dimen.emoji_size)*/,
+            FrameLayout.LayoutParams.MATCH_PARENT
+            /*resources.getDimensionPixelOffset(R.dimen.emoji_size)*/
+        )
+        layoutParams.gravity = Gravity.CENTER
+        image.layoutParams = layoutParams
+        vectorDrawablesFragmentBinding.emojiContainerFrameLayout.addView(image)
+        image.setImageResource(emoji.resourceId)
     }
 
     @ExperimentalCoroutinesApi

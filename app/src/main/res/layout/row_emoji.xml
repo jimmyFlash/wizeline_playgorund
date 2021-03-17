@@ -52,7 +52,7 @@
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintBottom_toTopOf="@+id/emojiNameTextView"
       tools:src="@tools:sample/avatars"
-      android:src="@{ContextCompat.getDrawable(context,emoji.resourceId)}"
+      android:src="@{ContextCompat.getDrawable(context, emoji.resourceId)}"
       android:layout_margin="8dp"
       android:layout_width="72dp"
       android:layout_height="72dp"
