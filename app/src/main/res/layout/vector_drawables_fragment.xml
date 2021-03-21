@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".views.VectorDrawablesFragment">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/mainToolbar"
+        style="@style/AppTheme.ToolbarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+         />
+
     <FrameLayout
         android:id="@+id/sceneFrameLayout"
         android:layout_width="wrap_content"
@@ -66,6 +76,7 @@
             android:padding="8dp"
             android:text="@string/delete"
             android:textSize="14sp"
+            app:icon="@drawable/ic_delete_black_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/saveButton"
             app:layout_constraintHorizontal_bias="0.5"
@@ -79,6 +90,7 @@
             android:layout_margin="4dp"
             android:text="@string/save"
             android:textSize="14sp"
+            app:icon="@drawable/ic_save_black_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

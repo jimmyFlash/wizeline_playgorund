@@ -21,5 +21,11 @@
         <item name="android:dropDownHorizontalOffset">0dp</item>
     </style>
 
+    <style name="AppTheme.ToolbarStyle" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="titleTextColor">#FFFFFF</item>
+        <item name="subtitleTextColor">#FFFFFF</item>
+    </style>
+
 
 </resources>
