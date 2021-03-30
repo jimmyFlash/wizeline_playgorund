@@ -34,9 +34,9 @@ suspend fun Context.readFiles(): List<HistoryItem> =  withContext(Dispatchers.IO
   if (!fileDirectory.exists()) {
     return@withContext emptyList<HistoryItem>()
   }
-  for (file in (fileDirectory.listFiles { filename -> filename.endsWith(".png") } as Array<File>)) {
-
-    historyItems.add(HistoryItem(file.absolutePath, file.name))
+  for (file in (fileDirectory.listFiles() as Array<File>)){
+           if(file.name.endsWith(".png"))
+             historyItems.add(HistoryItem(file.absolutePath, file.name))
   }
   return@withContext historyItems
 }

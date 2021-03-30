@@ -5,13 +5,15 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wizeline.bookchallenge.MyApplication
@@ -20,7 +22,6 @@ import com.wizeline.bookchallenge.adapters.EmojiAdapter
 import com.wizeline.bookchallenge.databinding.VectorDrawablesFragmentBinding
 import com.wizeline.bookchallenge.logic.Emoji
 import com.wizeline.bookchallenge.utils.saveFile
-import com.wizeline.bookchallenge.views.customeviews.InteractiveImageView
 import com.wizeline.bookchallenge.views.customeviews.InteractiveViewPort
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
@@ -29,7 +30,8 @@ import java.util.*
 import javax.inject.Inject
 
 
-class VectorDrawablesFragment : Fragment(), View.OnClickListener, EmojiAdapter.EmojiCallback {
+class VectorDrawablesFragment : Fragment(), View.OnClickListener,
+    EmojiAdapter.EmojiCallback {
 
     private lateinit var emojiAdapter: EmojiAdapter
 
@@ -44,6 +46,13 @@ class VectorDrawablesFragment : Fragment(), View.OnClickListener, EmojiAdapter.E
 
     private lateinit var vectorDrawablesFragmentBinding: VectorDrawablesFragmentBinding
 
+    private lateinit var options: NavOptions
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,7 +60,10 @@ class VectorDrawablesFragment : Fragment(), View.OnClickListener, EmojiAdapter.E
         vectorDrawablesFragmentBinding = VectorDrawablesFragmentBinding
             .inflate(inflater, container, false)
 
-        setHasOptionsMenu(true)
+        (requireActivity() as? MainActivity)?.
+                setSupportActionBar(vectorDrawablesFragmentBinding.mainToolbar)
+
+
 
         vectorDrawablesFragmentBinding.emojiRecyclerView.layoutManager =
             LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
@@ -64,6 +76,19 @@ class VectorDrawablesFragment : Fragment(), View.OnClickListener, EmojiAdapter.E
         vectorDrawablesFragmentBinding.saveButton.setOnClickListener(this)
 
         return vectorDrawablesFragmentBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // add navigation transition animation options
+         options = navOptions {
+            anim {
+                enter = R.anim.slide_in_right
+                exit = R.anim.slide_out_left
+                popEnter = R.anim.slide_in_left
+                popExit = R.anim.slide_out_right
+            }
+        }
     }
 
     @ExperimentalCoroutinesApi
@@ -144,15 +169,35 @@ class VectorDrawablesFragment : Fragment(), View.OnClickListener, EmojiAdapter.E
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.vector_drawable_menu, menu)
+
         super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.vector_drawable_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_history -> {
-                TODO("use navigation component to navigate to history view")
-                // return true
+                // option 1
+                //findNavController().navigate(R.id.historyImageFragment, null, options)
+
+                //option 2
+                //Navigation.createNavigateOnClickListener(R.id.next_action, null)
+
+                // option 3
+                /*
+                    Navigation by actions has the following benefits over navigation by destination:
+
+                    You can visualize the navigation paths through your app
+
+                    Actions can contain additional associated attributes you can set,
+                    such as a transition animation, arguments values, and backstack behavior
+
+                    You can use the plugin safe args to navigate
+                */
+                val action = VectorDrawablesFragmentDirections.nextAction()
+                findNavController().navigate(action)
+
+                return true
             }
         }
         return false

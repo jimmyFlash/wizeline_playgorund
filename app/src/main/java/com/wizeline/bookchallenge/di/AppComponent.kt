@@ -1,6 +1,7 @@
 package com.wizeline.bookchallenge.di
 
 import android.content.Context
+import com.wizeline.bookchallenge.views.HistoryFragment
 import com.wizeline.bookchallenge.views.MainActivity
 import com.wizeline.bookchallenge.views.MainFragment
 import com.wizeline.bookchallenge.views.VectorDrawablesFragment
@@ -22,5 +23,6 @@ interface AppComponent {
     fun inject(activity : MainActivity)
     fun inject(mainFragment: MainFragment)
     fun inject(vectorDrawablesFragment: VectorDrawablesFragment)
+    fun inject(historyFragment: HistoryFragment)
 
 }

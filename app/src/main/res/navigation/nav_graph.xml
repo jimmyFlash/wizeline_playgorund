@@ -1,18 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    * <navigation> is the root node of every navigation graph.
+    * <navigation> contains one or more destinations, represented by <activity> or <fragment> elements.
+    * app:startDestination is an attribute that specifies the destination that is launched by default when the user
+     first opens the app.
+ -->
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/mainViewFragment">
+    app:startDestination="@id/vectorDrawablesFragment">
+
+    <!--
+       - android:id defines an ID for the fragment that you can use to reference the destination elsewhere in this XML and your code.
+       - android:name declares the fully qualified class name of the fragment to instantiate when you navigate to that destination.
+       - tools:layout specifies what layout should be shown in the graphical editor.
+
+       * Some <fragment> tags also contain <action>, <argument>, and <deepLink>
+   -->
 
     <fragment
         android:id="@+id/mainViewFragment"
         android:name="com.wizeline.bookchallenge.views.MainFragment"
         android:label="main_view_fragment"
-        tools:layout="@layout/main_fragment" />
+        tools:layout="@layout/main_fragment" >
+
+    </fragment>
     <fragment
         android:id="@+id/vectorDrawablesFragment"
         android:name="com.wizeline.bookchallenge.views.VectorDrawablesFragment"
         android:label="vector_drawables_fragment"
-        tools:layout="@layout/vector_drawables_fragment" />
+        tools:layout="@layout/vector_drawables_fragment" >
+
+        <action android:id="@+id/next_action"
+            app:destination="@id/historyImageFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/historyImageFragment"
+        android:name="com.wizeline.bookchallenge.views.HistoryFragment"
+        android:label="image_history_fragment"
+        tools:layout="@layout/history_fragment" >
+
+        <!--
+           The same ID next_action is used for the action connecting
+            historyImageFragment to vectorDrawablesFragment.
+           The popUpTo attribute is used - this action will pop fragments off of the back-stack
+       -->
+        <action
+            android:id="@+id/next_action"
+            app:popUpTo="@id/vectorDrawablesFragment">
+        </action>
+    </fragment>
 
 </navigation>
