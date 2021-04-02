@@ -1,9 +1,13 @@
 package com.wizeline.bookchallenge.views
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
+import com.wizeline.bookchallenge.Constants
 import com.wizeline.bookchallenge.MyApplication
+import com.wizeline.bookchallenge.R
 import com.wizeline.bookchallenge.databinding.ActivityMainBinding
 import javax.inject.Inject
 
@@ -28,8 +32,28 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        val host: NavHostFragment = supportFragmentManager
+            .findFragmentById(R.id.navHostFragment) as NavHostFragment? ?: return
+
+        val navController = host.navController
+
         mainActivityViewModel =  ViewModelProvider(viewModelStore, mainActivityViewModelFactory)
                                 .get(MainActivityViewModel::class.java)
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent? ) {
+        if (resultCode != RESULT_OK) { return }
+        if (requestCode == Constants.READ_EXTERNAL_STORAGE_REQUEST &&
+            data != null &&  data.data != null) {
+            val activeFragment  = this.supportFragmentManager.findFragmentById(R.id.navHostFragment)
+                ?.childFragmentManager?.primaryNavigationFragment
+
+            if (activeFragment is VectorDrawablesFragment){
+                activeFragment.onActivityResult(requestCode, resultCode, data)
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
 }
