@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -124,6 +125,15 @@ class VectorDrawablesFragment : Fragment(), View.OnClickListener,
     }
 
     private fun saveBitmapToFile() {
+
+        vectorDrawablesFragmentBinding.loadScreen.apply {
+            visibility = View.VISIBLE
+        }.also {
+            val animatable = it.findViewById<ImageView>(R.id.loadingView).drawable as
+                    android.graphics.drawable.Animatable
+            animatable.start()
+        }
+
         val bitmap = Bitmap.createBitmap(
             vectorDrawablesFragmentBinding.sceneFrameLayout.width,
             vectorDrawablesFragmentBinding.sceneFrameLayout.height, Bitmap.Config.ARGB_8888
@@ -140,6 +150,13 @@ class VectorDrawablesFragment : Fragment(), View.OnClickListener,
         lifecycleScope.launch(){
             context?.apply {
                 saveFile(fileName, bitmap)
+                vectorDrawablesFragmentBinding.loadScreen.apply {
+                    visibility = View.GONE
+                }.also {
+                    val animatable = it.findViewById<ImageView>(R.id.loadingView).drawable as
+                            android.graphics.drawable.Animatable
+                    animatable.stop()
+                }
                 Toast.makeText(this,
                     getString(R.string.file_saved, fileName), Toast.LENGTH_SHORT
                 ).show()

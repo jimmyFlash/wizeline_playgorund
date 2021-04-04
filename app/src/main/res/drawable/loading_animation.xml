@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ag referencing to the vector drawable ic_vd_loader.xml -->
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_vd_loader">
+    <!-- Added a target for the scaleGroup to use anim_scale.xml animation. -->
+    <target
+        android:name="scaleGroup"
+        android:animation="@animator/anim_scale"
+        />
+    <!-- Added a target for the rotationGroup to use anim_rotate.xml animation -->
+    <target
+        android:name="rotationGroup"
+        android:animation="@animator/anim_rotate" />
+    <!-- Added a target for the translateGroup to use anim_translate.xml animation -->
+    <target
+        android:name="translateGroup"
+        android:animation="@animator/anim_translate" />
+</animated-vector>
