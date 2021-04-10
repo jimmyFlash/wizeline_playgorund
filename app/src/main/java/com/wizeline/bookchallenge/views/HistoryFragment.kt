@@ -5,27 +5,26 @@ import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wizeline.bookchallenge.MyApplication
-import com.wizeline.bookchallenge.R
 import com.wizeline.bookchallenge.adapters.HistoryAdapter
 import com.wizeline.bookchallenge.databinding.HistoryFragmentBinding
-import com.wizeline.bookchallenge.logic.HistoryItem
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class HistoryFragment : Fragment() {
 
+    private lateinit var readSavedImageJOb: Job
+    private lateinit var loadImagesJob: Job
     lateinit var historyFragmentBinding: HistoryFragmentBinding
 
     private val historyAdapter = HistoryAdapter()
@@ -79,7 +78,7 @@ class HistoryFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(HistoryViewModel::class.java)
-        lifecycleScope.launchWhenCreated {
+       loadImagesJob =  lifecycleScope.launchWhenCreated {
             context?.let {
                 viewModel.loadImages(it)
             }
@@ -90,12 +89,18 @@ class HistoryFragment : Fragment() {
 
     @ExperimentalCoroutinesApi
     private fun setupObserver() {
-        lifecycleScope.launch {
+       readSavedImageJOb = lifecycleScope.launch {
             val savedImageList = viewModel.getSavedImages()
             savedImageList.collect {
                 historyAdapter.swap(it)
             }
         }
+    }
+
+    override fun onDestroy() {
+        readSavedImageJOb.cancel()
+        loadImagesJob.cancel()
+        super.onDestroy()
     }
 
 }
