@@ -27,14 +27,14 @@ class VectorDrawablesViewModel @Inject constructor() : ViewModel() {
     private fun buildEmojiList(): List<Emoji> {
         val emojiList = ArrayList<Emoji>()
         emojiList.add(Emoji("Baby 1", R.drawable.ic_emoji_baby_skin_0))
-        emojiList.add(Emoji("Baby 2", R.drawable.ic_emoji_baby_skin_1))
-        emojiList.add(Emoji("Baby 3", R.drawable.ic_emoji_baby_skin_2))
-        emojiList.add(Emoji("Baby 4", R.drawable.ic_emoji_baby_skin_3))
-        emojiList.add(Emoji("Baby 5", R.drawable.ic_emoji_baby_skin_4))
-        emojiList.add(Emoji("Baby 6", R.drawable.ic_emoji_baby_skin_5))
-        emojiList.add(Emoji("Baby 7", R.drawable.ic_emoji_baby_skin_6))
-        emojiList.add(Emoji("Baby 8", R.drawable.ic_emoji_baby_skin_7))
-        emojiList.add(Emoji("Baby 9", R.drawable.ic_emoji_baby_skin_8))
+        emojiList.add(Emoji("Wings", R.drawable.ic_wings))
+        emojiList.add(Emoji("Crown", R.drawable.ic_crown))
+        emojiList.add(Emoji("Daisy", R.drawable.ic_daisy))
+        emojiList.add(Emoji("Heart", R.drawable.ic_heart))
+        emojiList.add(Emoji("Lips", R.drawable.ic_lips))
+        emojiList.add(Emoji("Star", R.drawable.ic_star))
+        emojiList.add(Emoji("Heart-shades", R.drawable.ic_hearts_shades))
+        emojiList.add(Emoji("Crying", R.drawable.ic_crying))
         return emojiList
     }
 }
