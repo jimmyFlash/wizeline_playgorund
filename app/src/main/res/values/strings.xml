@@ -6,7 +6,7 @@
     <string name="file_saved">File %s saved to device.</string>
     <string name="share_file">Share file using&#8230;</string>
     <string name="load_image">Load image</string>
-    
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="mvi_sample">MVI sample</string>
     <string name="meme_demo">Vector drawables\n + \n meme demo app</string>
