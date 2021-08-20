@@ -31,6 +31,13 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
 
+        <action android:id="@+id/third_action"
+            app:destination="@id/annotationGeneratorFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
     </fragment>
 
     <!--
@@ -44,7 +51,7 @@
     <fragment
         android:id="@+id/mainViewFragment"
         android:name="com.wizeline.bookchallenge.views.MainFragment"
-        android:label="main_view_fragment"
+        android:label="Custom spinner implementation"
         tools:layout="@layout/main_fragment" >
 
         <action
@@ -55,7 +62,7 @@
     <fragment
         android:id="@+id/vectorDrawablesFragment"
         android:name="com.wizeline.bookchallenge.views.VectorDrawablesFragment"
-        android:label="vector_drawables_fragment"
+        android:label="Vector drawables demo draw app"
         tools:layout="@layout/vector_drawables_fragment" >
 
         <action android:id="@+id/next_action"
@@ -75,7 +82,7 @@
     <fragment
         android:id="@+id/historyImageFragment"
         android:name="com.wizeline.bookchallenge.views.HistoryFragment"
-        android:label="image_history_fragment"
+        android:label="History artwork"
         tools:layout="@layout/history_fragment" >
 
         <!--
@@ -87,6 +94,19 @@
             android:id="@+id/next_action"
             app:popUpTo="@id/vectorDrawablesFragment">
         </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/annotationGeneratorFragment"
+        android:name="com.wizeline.bookchallenge.views.AnnotationGenFragment"
+        android:label="Annotation generated code with KAPT"
+        tools:layout="@layout/fragment_annotation_gen" >
+
+        <action
+            android:id="@+id/back_action"
+            app:popUpTo="@id/mainNavFragment">
+        </action>
+
     </fragment>
 
 </navigation>

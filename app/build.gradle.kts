@@ -60,6 +60,13 @@ dependencies {
 
     implementation(MaterialComponents.material)
 
+    // added dependencies for the annotation module
+    implementation(project(":annotation"))
+
+    // using kapt (Kotlin annotation processor) for codegen module which is our custom
+    //annotation processor
+    kapt(project(":codegen"))
+
 }
 
 //ktlint {

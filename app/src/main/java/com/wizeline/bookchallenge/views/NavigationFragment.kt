@@ -27,6 +27,7 @@ class NavigationFragment : Fragment(), View.OnClickListener {
         fragmentNavigationBinding = FragmentNavigationBinding.inflate(inflater, container, false)
         fragmentNavigationBinding.mviImplement.setOnClickListener(this)
         fragmentNavigationBinding.vectorDrawMeme.setOnClickListener(this)
+        fragmentNavigationBinding.annotationGen.setOnClickListener(this)
         return fragmentNavigationBinding.root
     }
 
@@ -52,6 +53,10 @@ class NavigationFragment : Fragment(), View.OnClickListener {
             }
             R.id.vectorDrawMeme ->{
                  action = NavigationFragmentDirections.secondAction()
+                findNavController().navigate(action)
+            }
+            R.id.annotation_gen ->{
+                action = NavigationFragmentDirections.thirdAction()
                 findNavController().navigate(action)
             }
         }
