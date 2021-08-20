@@ -134,3 +134,10 @@ object MaterialComponents{
     }
     const val material  = "com.google.android.material:material:${Versions.material_version}"
 }
+
+object GoogleAutoService{
+    private object Versions{
+        const val autoService_version = "1.0-rc4"
+    }
+    const val autoService  = "com.google.auto.service:auto-service:${Versions.autoService_version}"
+}
