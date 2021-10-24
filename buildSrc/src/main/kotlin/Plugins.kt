@@ -28,7 +28,7 @@ fun PluginDependenciesSpec.navigationSafeArgs(): PluginDependencySpec =
     id("androidx.navigation.safeargs")
 
 fun PluginDependenciesSpec.dependencyUpdates(): PluginDependencySpec =
-    id("com.github.ben-manes.versions").version("0.29.0")
+    id("com.github.ben-manes.versions").version("0.39.0")
 
 // plugin that removes unused dependencies / annotations and check dependency implementation method
 // with output report

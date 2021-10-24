@@ -13,7 +13,7 @@ object ProgaurdFile {
 
 object Dagger {
     private object Versions{
-        const val dagger      = "2.25.2"
+        const val dagger      = "2.38.1"
     }
     const val dagger = "com.google.dagger:dagger:${Versions.dagger}"
     const val dagger_compiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
@@ -70,13 +70,13 @@ object Timber{
 object AndroidX{
     private object Versions{
         const val architecture= "1.1.1"
-        const val constraintlayout = "1.1.3"
-        const val recyclerview = "1.1.0"
+        const val constraintlayout = "2.1.0"
+        const val recyclerview = "1.2.1"
         const val lifecyclextensions = "2.2.0"
-        const val appcompat      = "1.0.2"
+        const val appcompat      = "1.3.1"
         const val ktx         = "1.0.2"
-        const val lifecycleRuntimeKtx  = "2.2.0"
-        const val navigationKtx = "2.2.2"
+        const val lifecycleRuntimeKtx  = "2.3.1"
+        const val navigationKtx = "2.3.5"
     }
 
     const val android_app_compat = "androidx.appcompat:appcompat:${Versions.appcompat}"
@@ -112,9 +112,9 @@ object KotlinLibs{
 
 object TestLibs {
     private object Versions{
-        const val jUnit = "4.12"
-        const val runner = "1.1.1"
-        const val espresso = "3.1.1"
+        const val jUnit = "4.13.2"
+        const val runner = "1.4.0"
+        const val espresso = "3.4.0"
     }
     const val junit  = "junit:junit:${Versions.jUnit}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
@@ -130,14 +130,39 @@ object ImageLibs{
 
 object MaterialComponents{
     private object Versions{
-        const val material_version = "1.3.0-rc01"
+        const val material_version = "1.4.0"
     }
     const val material  = "com.google.android.material:material:${Versions.material_version}"
 }
 
+// for code generation in the annotation processor
 object GoogleAutoService{
     private object Versions{
-        const val autoService_version = "1.0-rc4"
+        const val autoService_version = "1.0"
     }
     const val autoService  = "com.google.auto.service:auto-service:${Versions.autoService_version}"
+}
+
+object RxJava{
+    private object Versions{
+        const val rx_kotlin_version = "2.1.0"
+        const val rx_android_version = "2.0.1"
+    }
+
+    const val rxJava2Android = "io.reactivex.rxjava2:rxandroid:${Versions.rx_android_version}"
+    const val rxJava2Kotlin = "io.reactivex.rxjava2:rxkotlin:${Versions.rx_kotlin_version}"
+}
+
+object DataStorage{
+    private object Versions{
+        const val room_version = "2.1.0-alpha06"
+    }
+    const val jetpackRoom  = "androidx.room:room-runtime:${Versions.room_version}"
+}
+
+object FaceBook{
+    private object Versions{
+        const val stetho_version = "1.5.0"
+    }
+    const val stetho  = "com.facebook.stetho:stetho:${Versions.stetho_version}"
 }
