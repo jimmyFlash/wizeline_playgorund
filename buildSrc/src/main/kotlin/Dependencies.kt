@@ -1,6 +1,3 @@
-const val  kotlinVersion     = "1.3.71"
-const val gradleVersion      = "4.1.0"
-
 object AndroidSDK {
     const val compileSdk = 29
     const val buildTools = "29.0.2"
@@ -37,8 +34,6 @@ object BuildPlugins {
     object Version {
         const val navigationSafeArgs = "1.0.0"
     }
-    const val androidGradlePlugin = "com.android.tools.build:gradle:$gradleVersion"
-    const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 
     const val navigationSafeArgsPlugin =
         "android.arch.navigation:navigation-safe-args-gradle-plugin:${Version.navigationSafeArgs}"
@@ -98,10 +93,13 @@ object KotlinLibs{
     private object Versions{
         const val coroutines  = "1.3.6"
         const val viewmodelKtx = "2.2.0"
+        const val  kotlinVersion     = "1.4.32"
     }
-    const val kotlin_lib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+
+    // TODO: 10/29/2021 move the below 2 lines to main build.gradle.kts and refactor affected project modules .kts
+    const val kotlin_lib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlinVersion}"
     // jdk8 coroutines integration module
-    const val kotlin_lib_jdk8 = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+    const val kotlin_lib_jdk8 = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlinVersion}"
     const val kotlin_coroutines_core =
         "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
     const val kotlin_coroutine_android =
