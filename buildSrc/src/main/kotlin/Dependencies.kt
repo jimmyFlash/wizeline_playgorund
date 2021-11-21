@@ -10,7 +10,7 @@ object ProgaurdFile {
 
 object Dagger {
     private object Versions{
-        const val dagger      = "2.38.1"
+        const val dagger      = "2.40.1"
     }
     const val dagger = "com.google.dagger:dagger:${Versions.dagger}"
     const val dagger_compiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
@@ -65,11 +65,11 @@ object Timber{
 object AndroidX{
     private object Versions{
         const val architecture= "1.1.1"
-        const val constraintlayout = "2.1.0"
+        const val constraintlayout = "2.1.2"
         const val recyclerview = "1.2.1"
         const val lifecyclextensions = "2.2.0"
         const val appcompat      = "1.3.1"
-        const val ktx         = "1.0.2"
+        const val ktx         = "1.6.0"
         const val lifecycleRuntimeKtx  = "2.3.1"
         const val navigationKtx = "2.3.5"
     }
@@ -91,8 +91,8 @@ object AndroidX{
 
 object KotlinLibs{
     private object Versions{
-        const val coroutines  = "1.3.6"
-        const val viewmodelKtx = "2.2.0"
+        const val coroutines  = "1.5.2"
+        const val viewmodelKtx = "2.3.1"
         const val  kotlinVersion     = "1.4.32"
     }
 
@@ -143,24 +143,26 @@ object GoogleAutoService{
 
 object RxJava{
     private object Versions{
-        const val rx_kotlin_version = "2.1.0"
-        const val rx_android_version = "2.0.1"
+        const val rx_kotlin_version = "3.0.1"
+        const val rx_android_version = "3.0.0"
     }
 
-    const val rxJava2Android = "io.reactivex.rxjava2:rxandroid:${Versions.rx_android_version}"
-    const val rxJava2Kotlin = "io.reactivex.rxjava2:rxkotlin:${Versions.rx_kotlin_version}"
+    const val rxJava3Android = "io.reactivex.rxjava3:rxandroid:${Versions.rx_android_version}"
+    const val rxJava3Kotlin = "io.reactivex.rxjava3:rxkotlin:${Versions.rx_kotlin_version}"
 }
 
 object DataStorage{
     private object Versions{
-        const val room_version = "2.1.0-alpha06"
+        const val room_version = "2.3.0"
     }
     const val jetpackRoom  = "androidx.room:room-runtime:${Versions.room_version}"
+    const val jetpackRoomCompiler  = "androidx.room:room-compiler:${Versions.room_version}"
+    const val jetpackRoomRxJava3Support = "androidx.room:room-rxjava3:${Versions.room_version}"
 }
 
 object FaceBook{
     private object Versions{
-        const val stetho_version = "1.5.0"
+        const val stetho_version = "1.5.1"
     }
     const val stetho  = "com.facebook.stetho:stetho:${Versions.stetho_version}"
 }
