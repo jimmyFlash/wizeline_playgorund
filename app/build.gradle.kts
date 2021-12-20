@@ -1,8 +1,8 @@
 plugins {
     androidApp()
     kotlinAndroid()
-    kotlinAndroidExt()
     kotlinKapt()
+    parcelize()
 //    ktlint(includeVersion = false)
 //    detekt(includeVersion = false)
 
@@ -60,12 +60,16 @@ dependencies {
 
     implementation(MaterialComponents.material)
 
+    implementation (FaceBook.stetho)
+
     // added dependencies for the annotation module
     implementation(project(":annotation"))
 
     // using kapt (Kotlin annotation processor) for codegen module which is our custom
     //annotation processor
     kapt(project(":codegen"))
+
+    implementation(project(":modules:rxandroid"))
 
 }
 

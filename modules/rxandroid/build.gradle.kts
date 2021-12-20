@@ -1,17 +1,25 @@
 plugins {
-    androidApp()
+    androidLibrary()
     kotlinAndroid()
-    kotlinAndroidExt()
     kotlinKapt()
-//    ktlint(includeVersion = false)
-//    detekt(includeVersion = false)
 
 }
 android {
-    setDefaultSigningConfigs(project)
-    setAppConfig()
-    useDefaultBuildTypes()
 
+    compileSdkVersion(AndroidSDK.compileSdk)
+    buildToolsVersion(AndroidSDK.buildTools)
+
+    defaultConfig {
+        minSdkVersion(DefaultConfig.minSdk)
+        targetSdkVersion(DefaultConfig.targetSdk)
+
+    }
+
+  /*  buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
+*/
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -43,4 +51,18 @@ dependencies {
     implementation (AndroidX.android_lifecycle_extensions)
     implementation (AndroidX.android_core_ktx)
     implementation (AndroidX.lifecycle_runtime_ktx)
+    implementation (AndroidX.android_fragment_ktx)
+
+    implementation (RxJava.rxJava3Android)
+    implementation (RxJava.rxJava3Kotlin)
+
+    implementation (DataStorage.jetpackRoom)
+
+    implementation (DataStorage.jetpackRoomRxJava3Support)
+    kapt(DataStorage.jetpackRoomCompiler)
+
+    implementation (FaceBook.stetho)
+
+    implementation (Dagger.dagger)
+    kapt (Dagger.dagger_compiler)
 }
