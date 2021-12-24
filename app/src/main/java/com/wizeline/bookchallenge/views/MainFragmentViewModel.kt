@@ -24,11 +24,6 @@ class MainFragmentViewModel @Inject constructor(): ViewModel() {
     //  intentChannel property of type Channel<Intent> for the intents
     val intentChannel = Channel<Intent>(Channel.UNLIMITED)
 
-    init {
-        intentChannel.offer(Intent.LoadAllBooks)
-    }
-
-
     /*
         Changing the state no longer requires a suspending method
         StateFlow inherits all the benefits of the Flow
@@ -75,6 +70,8 @@ class MainFragmentViewModel @Inject constructor(): ViewModel() {
 
     init {
 
+        intentChannel.trySend(Intent.LoadAllBooks).isSuccess
+
         if (bookState == State.Idle) loading.value = false// set loading state to true
 
         viewModelScope.launch {
@@ -95,7 +92,7 @@ class MainFragmentViewModel @Inject constructor(): ViewModel() {
 
         }
         sortedCategories?.add(0, "Top Rated Books")
-        catsList.value = sortedCategories
+        catsList.value = sortedCategories!!
     }
 
 

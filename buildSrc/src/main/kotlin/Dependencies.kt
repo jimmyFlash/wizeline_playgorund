@@ -72,7 +72,7 @@ object AndroidX{
         const val ktx         = "1.6.0"
         const val lifecycleRuntimeKtx  = "2.3.1"
         const val navigationKtx = "2.3.5"
-        const val fragmentKtx = "1.4.0"
+        const val fragmentKtx = "1.3.0"
     }
 
     const val android_app_compat = "androidx.appcompat:appcompat:${Versions.appcompat}"
