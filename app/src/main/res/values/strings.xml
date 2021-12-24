@@ -11,4 +11,5 @@
     <string name="mvi_sample">MVI sample</string>
     <string name="meme_demo">Vector drawables\n + \n meme demo app</string>
     <string name="annotation_generated_code">Annotation generated code</string>
+    <string name="rx_android_cheese_search">RX Android, cheese search</string>
 </resources>

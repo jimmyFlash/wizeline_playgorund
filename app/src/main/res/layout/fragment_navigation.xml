@@ -13,7 +13,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:constraint_referenced_ids="mviImplement,vectorDrawMeme,annotation_gen,dd,ss,tt"
+        app:constraint_referenced_ids="mviImplement,vectorDrawMeme,annotation_gen,rx_android,ss,tt"
         app:flow_wrapMode="chain"
         app:flow_horizontalGap="10dp"
         app:flow_verticalGap="10dp"
@@ -58,14 +58,14 @@
             />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/dd"
+            android:id="@+id/rx_android"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:padding="@dimen/min_mar_pad"
-            tools:text="@tools:sample/cities"
-            android:text="Dummy"
+            android:text="@string/rx_android_cheese_search"
             android:gravity="center"
+            android:textColor="@android:color/white"
             />
 
         <androidx.appcompat.widget.AppCompatTextView

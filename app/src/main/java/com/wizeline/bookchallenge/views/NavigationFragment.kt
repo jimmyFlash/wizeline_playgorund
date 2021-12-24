@@ -28,6 +28,7 @@ class NavigationFragment : Fragment(), View.OnClickListener {
         fragmentNavigationBinding.mviImplement.setOnClickListener(this)
         fragmentNavigationBinding.vectorDrawMeme.setOnClickListener(this)
         fragmentNavigationBinding.annotationGen.setOnClickListener(this)
+        fragmentNavigationBinding.rxAndroid.setOnClickListener(this)
         return fragmentNavigationBinding.root
     }
 
@@ -57,6 +58,10 @@ class NavigationFragment : Fragment(), View.OnClickListener {
             }
             R.id.annotation_gen ->{
                 action = NavigationFragmentDirections.thirdAction()
+                findNavController().navigate(action)
+            }
+            R.id.rx_android->{
+                action = NavigationFragmentDirections.forthAction()
                 findNavController().navigate(action)
             }
         }
