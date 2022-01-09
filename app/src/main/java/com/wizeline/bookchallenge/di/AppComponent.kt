@@ -22,7 +22,7 @@ interface AppComponent {
         fun create(@BindsInstance context: Context): AppComponent
     }
 
-    // Expose RegistrationComponent factory from the graph
+    // Expose CheeseComponent factory from the graph
     fun cheeseComponent(): CheeseComponent.Factory
 
 
