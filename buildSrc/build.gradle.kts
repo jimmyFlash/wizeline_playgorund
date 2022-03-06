@@ -2,8 +2,8 @@ plugins {
     `kotlin-dsl`
 }
 
-val kotlinVersion     = "1.3.71"
-val gradleVersion      = "4.1.0"
+val kotlinVersion     = "1.4.32"
+val gradleVersion      = "4.1.3"
 val okhttp      = "4.3.1"
 
 repositories {

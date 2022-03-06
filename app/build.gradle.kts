@@ -1,10 +1,14 @@
 plugins {
     androidApp()
     kotlinAndroid()
-    kotlinAndroidExt()
     kotlinKapt()
+    parcelize()
 //    ktlint(includeVersion = false)
 //    detekt(includeVersion = false)
+
+    /*The safe args plugin ensures type-safe navigations and passing of arguments between destinations.
+This plugin generates simple object and builder classes for navigation.*/
+    navigationSafeArgs()
 }
 
 
@@ -14,13 +18,15 @@ android {
     setAppConfig()
     useDefaultBuildTypes()
 
-    buildFeatures{
-        dataBinding = true
-        viewBinding = true
-    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    // For Kotlin projects
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 
 }
@@ -41,9 +47,29 @@ dependencies {
     implementation (AndroidX.android_recyclerview)
     implementation (AndroidX.android_lifecycle_extensions)
     implementation (AndroidX.android_core_ktx)
+    implementation (AndroidX.lifecycle_runtime_ktx)
 
     implementation (Dagger.dagger)
     kapt (Dagger.dagger_compiler)
+
+    // Navigation Component
+    implementation (AndroidX.navigationComp)
+    implementation (AndroidX.navigationUi)
+
+    implementation(ImageLibs.picasso)
+
+    implementation(MaterialComponents.material)
+
+    implementation (FaceBook.stetho)
+
+    // added dependencies for the annotation module
+    implementation(project(":annotation"))
+
+    // using kapt (Kotlin annotation processor) for codegen module which is our custom
+    //annotation processor
+    kapt(project(":codegen"))
+
+    implementation(project(":modules:rxandroid"))
 
     lintChecks(project(":customlints"))
 

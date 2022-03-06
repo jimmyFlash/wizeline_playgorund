@@ -37,7 +37,13 @@ fun BaseAppModuleExtension.setAppConfig() {
         versionName  = "${versionMajor}.${versionMinor}.${versionPatch}"
         testInstrumentationRunner = DefaultConfig.instrumentationRunner
 
+        vectorDrawables.useSupportLibrary = true
         buildConfigString("APP_NAME", getCustomProperty ("./config/common.properties"))
+    }
+
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
     }
 }
 

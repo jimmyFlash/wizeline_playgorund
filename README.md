@@ -9,6 +9,7 @@
 
 ## Features
 
+- MVI + Flow
 - Kotlin
 - full Kotlin dsl migration
 - coroutines (basic)

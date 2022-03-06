@@ -2,5 +2,10 @@
 <resources>
     <dimen name="padding_text">8dp</dimen>
     <dimen name="text_size">16sp</dimen>
+    <dimen name="min_mar_pad">10dp</dimen>
+    <dimen name="standard_offset_1">40dp</dimen>
+    <dimen name="corner_rad_min">5dp</dimen>
+    <dimen name="hairline_stroke">1dp</dimen>
+    <dimen name="emoji_size">56dp</dimen>
     <dimen name="list_item_button_right_margin">8dp</dimen>
 </resources>

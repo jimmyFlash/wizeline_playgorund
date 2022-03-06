@@ -11,11 +11,11 @@ fun PluginDependenciesSpec.androidLibrary(): PluginDependencySpec =
 fun PluginDependenciesSpec.javaLibrary(): PluginDependencySpec =
     id("java-library")
 
-fun PluginDependenciesSpec.androidLint(): PluginDependencySpec =
-    id("com.android.lint")
-
-fun PluginDependenciesSpec.kotlinPlugin(): PluginDependencySpec =
+fun PluginDependenciesSpec.kotlin(): PluginDependencySpec =
     id("kotlin")
+
+fun PluginDependenciesSpec.parcelize(): PluginDependencySpec =
+    id("kotlin-parcelize")
 
 
 fun PluginDependenciesSpec.kotlinAndroid(): PluginDependencySpec =
@@ -27,8 +27,11 @@ fun PluginDependenciesSpec.kotlinAndroidExt(): PluginDependencySpec =
 fun PluginDependenciesSpec.kotlinKapt(): PluginDependencySpec =
     kotlin("kapt")
 
+fun PluginDependenciesSpec.navigationSafeArgs(): PluginDependencySpec =
+    id("androidx.navigation.safeargs")
+
 fun PluginDependenciesSpec.dependencyUpdates(): PluginDependencySpec =
-    id("com.github.ben-manes.versions").version("0.29.0")
+    id("com.github.ben-manes.versions").version("0.39.0")
 
 // plugin that removes unused dependencies / annotations and check dependency implementation method
 // with output report

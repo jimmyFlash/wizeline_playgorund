@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".views.NavigationFragment" >
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:constraint_referenced_ids="mviImplement,vectorDrawMeme,annotation_gen,rx_android,ss,tt"
+        app:flow_wrapMode="chain"
+        app:flow_horizontalGap="10dp"
+        app:flow_verticalGap="10dp"
+        app:flow_horizontalStyle="spread"
+        app:flow_verticalStyle="spread"
+        app:flow_verticalAlign="center"
+        app:flow_horizontalAlign="center"
+
+        />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/mviImplement"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:padding="@dimen/min_mar_pad"
+            android:text="@string/mvi_sample"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/vectorDrawMeme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:padding="@dimen/min_mar_pad"
+            android:text="@string/meme_demo"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/annotation_gen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:padding="@dimen/min_mar_pad"
+            android:text="@string/annotation_generated_code"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/rx_android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:padding="@dimen/min_mar_pad"
+            android:text="@string/rx_android_cheese_search"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:padding="@dimen/min_mar_pad"
+            tools:text="@tools:sample/cities"
+            android:text="Dummy"
+            android:gravity="center"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/ss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:padding="@dimen/min_mar_pad"
+            tools:text="@tools:sample/cities"
+            android:text="Dummy"
+            android:gravity="center"
+            />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

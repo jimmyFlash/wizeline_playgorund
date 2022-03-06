@@ -2,7 +2,10 @@ package com.wizeline.bookchallenge.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.wizeline.bookchallenge.MainActivityViewModel
+import com.jimmy.rxandroid.ui.CheeseViewModel
+import com.wizeline.bookchallenge.views.MainActivityViewModel
+import com.wizeline.bookchallenge.views.MainFragmentViewModel
+import com.wizeline.bookchallenge.views.VectorDrawablesViewModel
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
@@ -13,6 +16,7 @@ import kotlin.reflect.KClass
 
 /**
  * class that implements the ViewModelProvider.Factory interface (implementation)
+ * ViewModelFactory that will provide us a right ViewModel from ViewModelModule
  */
 class ViewModelFactoryModule @Inject constructor(
     private val viewModels: MutableMap<Class<out ViewModel>, Provider<ViewModel>>) :
@@ -22,11 +26,16 @@ class ViewModelFactoryModule @Inject constructor(
         viewModels[modelClass]?.get() as T
 }
 
+// ViewModelKey is an annotation for using as a key in the Map
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER)
 @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
 @MapKey
 internal annotation class ViewModelKey(val value: KClass<out ViewModel>)
 
+/**
+ * ViewModelModule is responsible for binding all over ViewModel classes into
+ * ViewModelFactoryModule constructor arguments
+ */
 @Module
 abstract class ViewModelModule {
 
@@ -43,5 +52,20 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MainActivityViewModel::class)
     internal abstract fun provideMainActivityViewModel(viewModel: MainActivityViewModel): ViewModel
-    //Add more ViewModels here
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MainFragmentViewModel::class)
+    internal abstract fun provideMainFragmentViewModel(viewModel: MainFragmentViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(VectorDrawablesViewModel::class)
+    internal abstract fun provideVectorDrawablesViewModel(viewModel: VectorDrawablesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CheeseViewModel::class)
+    internal abstract fun provideCheeseViewModel(viewModel:CheeseViewModel): ViewModel
+
 }
