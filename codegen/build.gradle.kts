@@ -2,7 +2,7 @@
 
 plugins {
     javaLibrary()
-    kotlin()
+    kotlinPlugin()
     kotlinKapt()
 }
 
@@ -23,12 +23,6 @@ sourceSets{
         }
     }
 }
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_7
-    targetCompatibility = JavaVersion.VERSION_1_7
-}
-
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))

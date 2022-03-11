@@ -171,7 +171,7 @@ object FaceBook{
 }
 object Lints{
     private object Versions{
-        const val lintVersion = "27.0.0"
+        const val lintVersion = "27.1.3" // AGP(4.1.3) + 23.0.0 = 27.1.3
     }
 
     // Lint

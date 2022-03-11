@@ -11,7 +11,10 @@ fun PluginDependenciesSpec.androidLibrary(): PluginDependencySpec =
 fun PluginDependenciesSpec.javaLibrary(): PluginDependencySpec =
     id("java-library")
 
-fun PluginDependenciesSpec.kotlin(): PluginDependencySpec =
+fun PluginDependenciesSpec.androidLint(): PluginDependencySpec =
+    id("com.android.lint")
+
+fun PluginDependenciesSpec.kotlinPlugin(): PluginDependencySpec =
     id("kotlin")
 
 fun PluginDependenciesSpec.parcelize(): PluginDependencySpec =
